@@ -4,13 +4,13 @@
         <thead>
             <tr>
                 <th scope="col"><a href="listDirectorsByCategory/nombre_director">Nombre</a></th>
-                {if $idToChange != 0}
+                {if $idToChange != null}
                     <th scope="col">gag</a></th>
                 {/if}
             </tr>
         </thead>
         {foreach from=$directors item=$director}
-            {if $idToChange != 0}
+            {if $idToChange != null}
                 {if $director->id_director === $idToChange}
                     <tr>
                         <form action="{BASE_URL}updateDirector/{$idToChange}" method="post">

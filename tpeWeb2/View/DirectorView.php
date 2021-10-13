@@ -7,9 +7,10 @@ class DirectorView
     {
         $this->smarty = new Smarty();
     }
-    function renderDirectors($directors, $idToChange = null)
+    function renderDirectors($directors, $logged = null, $idToChange = null)
     {
         $this->smarty->assign('directors', $directors);
+        $this->smarty->assign('logged', $logged);
         $this->smarty->assign('idToChange', $idToChange);
         $this->smarty->display('templates/directorList.tpl');
     }

@@ -9,42 +9,21 @@ class ScreenwritersController
     private $model;
     private $view;
     private $authHelper;
+    private $logged;
 
     function __construct()
     {
         $this->model = new ScreenwritersModel;
         $this->view = new ScreenwritersView;
         $this->authHelper = new AuthHelper();
+        $this->logged = false;
     }
 
     function home()
     {
-        $this->authHelper->checkLoggedIn();
+        $this->logged = $this->authHelper->isLogged();
         $screenwriters = $this->model->getScreenwriters();
-        $this->view->home($screenwriters);
-    }
-
-    function loadScreenwriters()
-    {
-        $this->authHelper->checkLoggedIn();
-        $table =
-            '<table id="tableScreenwriter">
-                <tr>
-                    <th></th>
-                    <th>Guionista</th>
-                </tr>';
-
-        $screenwriters = $this->model->getScreenwriters();
-
-        foreach ($screenwriters as $screenwriter) {
-            $table .=  '<tr> <td><input type = "checkbox" data-entry = "' . $screenwriter->id_guionista . '" class = "status"></td>
-                                    <td>' . $screenwriter->nombre . '</td>
-                                    <td> <input type="button" data-entry = "' . $screenwriter->id_guionista . '" data-name = "' . $screenwriter->nombre . '" value = "Editar" class = "btnEdit"> </td>
-                                </tr>';
-        }
-        $table .= '</table>';
-
-        echo $table;
+        $this->view->home($screenwriters, $this->logged);
     }
 
     function addScreenwriter($name)
@@ -59,12 +38,10 @@ class ScreenwritersController
 
     function getChaptersOfScreenwritter($id)
     {
-        $this->authHelper->checkLoggedIn();
         if (!isset($id) || empty($id)) {
             $this->view->renderError("Error! guionista no especificado");
             return;
         }
-        $this->authHelper->checkLoggedIn();
         $data = $this->model->getChaptersOfScreenwritter($id);
         $this->view->loadChaptersOfScreenwritter($data);
     }
@@ -87,7 +64,7 @@ class ScreenwritersController
             return;
         }
         $screenwriters = $this->model->getScreenwriters();
-        $this->view->home($screenwriters, $id);
+        $this->view->home($screenwriters, null, $id);
     }
 
     function deleteScreenwriter($id)

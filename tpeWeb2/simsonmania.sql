@@ -2,10 +2,10 @@
 -- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 02-10-2021 a las 18:45:54
--- Versión del servidor: 10.4.19-MariaDB
--- Versión de PHP: 8.0.6
+-- Host: 127.0.0.1
+-- Generation Time: Oct 14, 2021 at 12:07 AM
+-- Server version: 10.4.19-MariaDB
+-- PHP Version: 8.0.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `simsonmania`
+-- Database: `simsonmania`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `capitulo`
+-- Table structure for table `capitulo`
 --
 
 CREATE TABLE `capitulo` (
@@ -37,7 +37,7 @@ CREATE TABLE `capitulo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `capitulo`
+-- Dumping data for table `capitulo`
 --
 
 INSERT INTO `capitulo` (`id_capitulo`, `nombre`, `temporada`, `estreno`, `gag`, `id_director`) VALUES
@@ -45,12 +45,14 @@ INSERT INTO `capitulo` (`id_capitulo`, `nombre`, `temporada`, `estreno`, `gag`, 
 (3, 'El cuarteto de Homero', 'Temporada 5', '1993-09-30', 'Salen tres tomas de diferentes gags, de los cuales todos acaban mal: Primero: Todos cuando se chocan se rompen, Segundo: Todo ropa y cuerpo cambia de lugar y está enredado y Tercero: Todos cuando chocan explotan.', 1),
 (44, 'asfasgfas', 'aaaaa', '2021-09-09', 's', 2),
 (45, 'Quimica', 'aaa', '2021-09-01', 'sss', 9),
-(87, 'testeado', 'testeado', '2021-10-27', 'testeado', 1);
+(87, 'testeado', 'testeado', '2021-10-27', 'testeado', 1),
+(92, 'aaa', 'aaaaa', '2021-10-13', 'aaaaa', 14),
+(98, 'bbbbbbb', 'bbbbbbb', '2021-10-07', 'bbbb', 9);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `director`
+-- Table structure for table `director`
 --
 
 CREATE TABLE `director` (
@@ -60,7 +62,7 @@ CREATE TABLE `director` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `director`
+-- Dumping data for table `director`
 --
 
 INSERT INTO `director` (`id_director`, `nombre_director`, `biografia`) VALUES
@@ -68,12 +70,13 @@ INSERT INTO `director` (`id_director`, `nombre_director`, `biografia`) VALUES
 (2, 'Mark Kirkland', 'Mark Kirkland es el director de numerosos episodios de la serie animada Los Simpson. En 2005, había dirigido 58 episodios, más que cualquier otro director, siendo una cantidad similar a los episodios escritos por John Swartzwelder. También estuvo trabajando en el programa como director durante más tiempo que el resto de los creadores, con la excepción de David Silverman, ya que dirigió episodios desde la segunda temporada. '),
 (7, 'PruebaDirector1', 'aaaaaaaaaaaaaaa'),
 (9, 'PruebaDirector3', 'bbbbbbbbbbbbbbbbbbb'),
-(14, 'aaaasss', 'aaaaaassss');
+(14, 'aaaasss', 'aaaaaassss'),
+(17, 'ffffffaas', 'aaaaaaaaa');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `guionista`
+-- Table structure for table `guionista`
 --
 
 CREATE TABLE `guionista` (
@@ -82,7 +85,7 @@ CREATE TABLE `guionista` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `guionista`
+-- Dumping data for table `guionista`
 --
 
 INSERT INTO `guionista` (`id_guionista`, `nombre`) VALUES
@@ -90,12 +93,14 @@ INSERT INTO `guionista` (`id_guionista`, `nombre`) VALUES
 (2, 'Dan Greaney'),
 (3, 'David S. Cohen'),
 (4, 'Jeff Martin'),
-(5, 'ads');
+(5, 'ads'),
+(17, 'fffffff'),
+(18, 'aaaa');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `guionista_de_x_capitulo`
+-- Table structure for table `guionista_de_x_capitulo`
 --
 
 CREATE TABLE `guionista_de_x_capitulo` (
@@ -105,7 +110,7 @@ CREATE TABLE `guionista_de_x_capitulo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `guionista_de_x_capitulo`
+-- Dumping data for table `guionista_de_x_capitulo`
 --
 
 INSERT INTO `guionista_de_x_capitulo` (`id_guionista_x_capitulo`, `id_capitulo`, `id_guionista`) VALUES
@@ -115,33 +120,56 @@ INSERT INTO `guionista_de_x_capitulo` (`id_guionista_x_capitulo`, `id_capitulo`,
 (4, 3, 4),
 (5, 45, 5),
 (6, 45, 2),
-(21, 87, 5);
+(21, 87, 5),
+(28, 92, 2),
+(37, 98, 1),
+(38, 98, 2);
+
+-- --------------------------------------------------------
 
 --
--- Índices para tablas volcadas
+-- Table structure for table `usuario`
+--
+
+CREATE TABLE `usuario` (
+  `id_usuario` int(11) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `rol` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `usuario`
+--
+
+INSERT INTO `usuario` (`id_usuario`, `email`, `password`, `rol`) VALUES
+(1, 'prueba1@gmail.com', '$2y$10$c8IfwjqJZbajZlyN2HavYu3su8WqG/r56cWy5EKCU3R9966vSM7RG', 'admin');
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `capitulo`
+-- Indexes for table `capitulo`
 --
 ALTER TABLE `capitulo`
   ADD PRIMARY KEY (`id_capitulo`),
   ADD KEY `fk_capitulos_directores` (`id_director`);
 
 --
--- Indices de la tabla `director`
+-- Indexes for table `director`
 --
 ALTER TABLE `director`
   ADD PRIMARY KEY (`id_director`);
 
 --
--- Indices de la tabla `guionista`
+-- Indexes for table `guionista`
 --
 ALTER TABLE `guionista`
   ADD PRIMARY KEY (`id_guionista`);
 
 --
--- Indices de la tabla `guionista_de_x_capitulo`
+-- Indexes for table `guionista_de_x_capitulo`
 --
 ALTER TABLE `guionista_de_x_capitulo`
   ADD PRIMARY KEY (`id_guionista_x_capitulo`),
@@ -149,45 +177,57 @@ ALTER TABLE `guionista_de_x_capitulo`
   ADD KEY `fk_guionistas_de_x_capitulo_capitulos` (`id_capitulo`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- Indexes for table `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`id_usuario`);
+
+--
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `capitulo`
+-- AUTO_INCREMENT for table `capitulo`
 --
 ALTER TABLE `capitulo`
-  MODIFY `id_capitulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `id_capitulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 
 --
--- AUTO_INCREMENT de la tabla `director`
+-- AUTO_INCREMENT for table `director`
 --
 ALTER TABLE `director`
-  MODIFY `id_director` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_director` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
--- AUTO_INCREMENT de la tabla `guionista`
+-- AUTO_INCREMENT for table `guionista`
 --
 ALTER TABLE `guionista`
-  MODIFY `id_guionista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_guionista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
--- AUTO_INCREMENT de la tabla `guionista_de_x_capitulo`
+-- AUTO_INCREMENT for table `guionista_de_x_capitulo`
 --
 ALTER TABLE `guionista_de_x_capitulo`
-  MODIFY `id_guionista_x_capitulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_guionista_x_capitulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
--- Restricciones para tablas volcadas
+-- AUTO_INCREMENT for table `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `capitulo`
+-- Constraints for table `capitulo`
 --
 ALTER TABLE `capitulo`
   ADD CONSTRAINT `fk_capitulos_directores` FOREIGN KEY (`id_director`) REFERENCES `director` (`id_director`);
 
 --
--- Filtros para la tabla `guionista_de_x_capitulo`
+-- Constraints for table `guionista_de_x_capitulo`
 --
 ALTER TABLE `guionista_de_x_capitulo`
   ADD CONSTRAINT `fk_guionistas_de_x_capitulo_capitulos` FOREIGN KEY (`id_capitulo`) REFERENCES `capitulo` (`id_capitulo`),

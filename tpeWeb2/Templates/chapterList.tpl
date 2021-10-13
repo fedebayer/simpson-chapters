@@ -12,7 +12,6 @@
         </tr>
     </thead>
     {foreach from=$chapters item=$chapter}
-        {if $chapter->nombre != null}
             {if $idToChange != null}
                 {if $chapter->id_capitulo === $idToChange}
                     <tr>
@@ -22,8 +21,9 @@
                             <td><input type="text" name="estrenoNuevo" id="estrenoNuevo" value = "{$chapter->estreno}"></td>
                             <td><input type="text" name="gagNuevo" id="gagNuevo" value = "{$chapter->gag}"></td>
                             <td><select name="id_directorNuevo">
-                            {foreach from=$chapters item=$chapter}
-                                <option value="{$chapter->id_director}">{$chapter->director}</option>
+                            <option value="{$chapter->id_director}">{$chapter->director}</option>
+                            {foreach from=$directors item=$director}
+                            <option value="{$director->id_director}">{$director->nombre_director}</option>
                             {/foreach}
                             </select></td>
                             <td><select name="id_guionistaNuevo">
@@ -43,11 +43,12 @@
                     <td>{$chapter->director}</td>
                     <td>{$chapter->guionistas}</td>
                     <td><a class="btn btn-outline-success" href="viewChapterInfo/{$chapter->id_capitulo}/{$chapter->director}"> Info</a></td>
-                    <td><a class="btn btn-outline-danger" href="deleteChapter/{$chapter->id_capitulo}"> Borrar</a></td>
-                    <td><a class="btn btn-outline-info" href="goToUpdateChapter/{$chapter->id_capitulo}"> Editar</a></td>
+                    {if $logged}
+                        <td><a class="btn btn-outline-danger" href="deleteChapter/{$chapter->id_capitulo}"> Borrar</a></td>
+                        <td><a class="btn btn-outline-info" href="goToUpdateChapter/{$chapter->id_capitulo}"> Editar</a></td>
+                    {/if}
                 </tr>
             {/if}
-        {/if}
     {/foreach}
     </table>
         <br>
@@ -56,29 +57,30 @@
             <input type="text" name="directorABuscar" id="directorABuscar" placeholder="nombre de director">
             <input type="submit" class="btn btn-outline-primary" name="enviar" value="Buscar">
         </form>
-
-        <br><br>
-        <h1>Ingrese Capitulo</h1>
-        <form action="createChapter" method="post">
-            <input type="text" name="nombre" id="nombre" placeholder="nombre">
-            <input type="text" name="temporada" id="temporada" placeholder="temporada">
-            <label for="estreno">Fecha de estreno:</label>
-            <input type="date" name="estreno" id="estreno" placeholder="estreno">
-            <textarea type="text" name="gag" id="gag" placeholder="gag"></textarea>
-            <label for="id_director">Director:</label>
-            <select name="id_director">
-            {foreach from=$directors item=$director}
-                <option value="{$director->id_director}">{$director->nombre_director}</option>
-            {/foreach}
-            </select>
-            
-            {foreach from=$screenwriters item=$screenwriter}
-                {if $screenwriter['idScreenwriter'] != ''}
-                    <input type="checkbox" name = "screenwriters[]" value="{$screenwriter['idScreenwriter']}">{$screenwriter['screenwriterName']}
-                {/if}
-            {/foreach}
-            <input type="submit" class="btn btn-outline-primary" name="enviar">
-        </form>
+        {if $logged}
+            <br><br>
+            <h1>Ingrese Capitulo</h1>
+            <form action="createChapter" method="post">
+                <input type="text" name="nombre" id="nombre" placeholder="nombre">
+                <input type="text" name="temporada" id="temporada" placeholder="temporada">
+                <label for="estreno">Fecha de estreno:</label>
+                <input type="date" name="estreno" id="estreno" placeholder="estreno">
+                <textarea type="text" name="gag" id="gag" placeholder="gag"></textarea>
+                <label for="id_director">Director:</label>
+                <select name="id_director">
+                {foreach from=$directors item=$director}
+                    <option value="{$director->id_director}">{$director->nombre_director}</option>
+                {/foreach}
+                </select>
+                
+                {foreach from=$screenwriters item=$screenwriter}
+                    {if $screenwriter['idScreenwriter'] != ''}
+                        <input type="checkbox" name = "screenwriters[]" value="{$screenwriter['idScreenwriter']}">{$screenwriter['screenwriterName']}
+                    {/if}
+                {/foreach}
+                <input type="submit" class="btn btn-outline-primary" name="enviar">
+            </form>
+        {/if}
         <br><br>
         <a href="directores" class="btn btn-outline-primary" name="enviar"/>Ir a Directores
         <a href="guionistas" class="btn btn-outline-primary" name="enviar"/>Ir a Guionistas

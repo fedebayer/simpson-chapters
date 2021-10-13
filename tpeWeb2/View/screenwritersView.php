@@ -9,9 +9,10 @@ class ScreenwritersView
         $this->smarty = new Smarty();
     }
 
-    function home($screenwriters, $idToChange = null)
+    function home($screenwriters, $logged = null, $idToChange = null)
     {
         $this->smarty->assign('screenwriters', $screenwriters);
+        $this->smarty->assign('logged', $logged);
         $this->smarty->assign('idToChange', $idToChange);
         $this->smarty->display('templates/screenwriters.tpl');
     }

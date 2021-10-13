@@ -12,6 +12,7 @@ class ChapterController
     private $screenwritersController;
     private $directorsController;
     private $authHelper;
+    private $logged;
 
     public function __construct()
     {
@@ -20,18 +21,18 @@ class ChapterController
         $this->screenwritersController = new ScreenwritersController();
         $this->directorsController = new DirectorController();
         $this->authHelper = new AuthHelper();
+        $this->logged = false;
     }
     public function showHome()
     {
-        $this->authHelper->checkLoggedIn();
+        $this->logged = $this->authHelper->isLogged();
         $chapters = $this->model->getChapters();
         $screenwriters = $this->sliceScreenwriters($chapters);
         $directors = $this->directorsController->getDirectors();
-        $this->view->renderChapters($chapters, $directors, $screenwriters);
+        $this->view->renderChapters($chapters, $directors, $screenwriters, $this->logged);
     }
     function createChapter()
     {
-        $this->authHelper->checkLoggedIn();
         if (!isset($_POST['nombre']) || empty($_POST['nombre']) || !isset($_POST['temporada']) || empty($_POST['temporada']) || !isset($_POST['estreno']) || empty($_POST['estreno']) || !isset($_POST['gag']) || empty($_POST['gag']) || !isset($_POST['id_director']) || empty($_POST['id_director']) || !isset($_POST['screenwriters']) || empty($_POST['screenwriters'])) {
             $this->view->renderError("Error! contenido de celdas no especificado");
             return;
@@ -61,7 +62,7 @@ class ChapterController
         $chapters = $this->model->getChapters();
         $directors = $this->directorsController->getDirectors();
         $screenwriters = $this->sliceScreenwriters($chapters);
-        $this->view->renderChapters($chapters, $directors, $screenwriters, $id);
+        $this->view->renderChapters($chapters, $directors, $screenwriters, null, $id);
     }
     function updateChapter($id)
     {
@@ -74,13 +75,11 @@ class ChapterController
     }
     function viewChapterInfo($id, $director)
     {
-        $this->authHelper->checkLoggedIn();
         $chapter = $this->model->getChapter($id);
         $this->view->renderChapterInfo($chapter, $director);
     }
     public function showChaptersByDirector()
     {
-        $this->authHelper->checkLoggedIn();
         if (!isset($_POST['directorABuscar']) || empty($_POST['directorABuscar'])) {
             $this->view->renderError("Error! director no especificado");
             return;
@@ -91,7 +90,6 @@ class ChapterController
     }
     public function showListByCategory($category)
     {
-        $this->authHelper->checkLoggedIn();
         $chapters = $this->model->getListByCategory($category);
         $screenwriters = $this->sliceScreenwriters($chapters);
         $directors = $this->directorsController->getDirectors();

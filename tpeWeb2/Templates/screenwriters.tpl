@@ -1,14 +1,15 @@
 {include file="templates/header.tpl"}
 <div class = "container">
     <h1>Simpsonmania</h1>
-
-    <div>
-        <form action = "addScreenwriter" method = "POST">
-            <input type="text" id = "nameScreenwriter" name = "nameScreenwriter" placeholder = "Guionista">
-            <input type="submit" <a class="btn btn-outline-info" id = "btnSave" value = "Agregar guionista">
-        </form>
-        <label id="label"></label>
-    </div>
+    {if $logged}
+        <div>
+            <form action = "addScreenwriter" method = "POST">
+                <input type="text" id = "nameScreenwriter" name = "nameScreenwriter" placeholder = "Guionista">
+                <input type="submit" <a class="btn btn-outline-info" id = "btnSave" value = "Agregar guionista">
+            </form>
+            <label id="label"></label>
+        </div>
+    {/if}
 
 
     <table id = "tableScreenwriter" class = "tableScreenwriter">
@@ -28,8 +29,10 @@
                 {else}
                     <tr>
                         <td>{$screenwriter->nombre}</td>
-                        <td><a class="btn btn-outline-danger" href="deleteScreenwriter/{$screenwriter->id_guionista}"> Borrar</a></td>
-                        <td><a class="btn btn-outline-info" href="goToUpdateScreenwriter/{$screenwriter->id_guionista}"> Editar</a></td>
+                        {if $logged}
+                            <td><a class="btn btn-outline-danger" href="deleteScreenwriter/{$screenwriter->id_guionista}"> Borrar</a></td>
+                            <td><a class="btn btn-outline-info" href="goToUpdateScreenwriter/{$screenwriter->id_guionista}"> Editar</a></td>
+                        {/if}
                     </tr>
             {/if}
         {/foreach}

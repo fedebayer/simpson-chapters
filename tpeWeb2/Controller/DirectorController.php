@@ -8,18 +8,20 @@ class DirectorController
     private $model;
     private $view;
     private $authHelper;
+    private $logged;
 
     public function __construct()
     {
         $this->model = new DirectorModel();
         $this->view = new DirectorView();
         $this->authHelper = new AuthHelper();
+        $this->logged = false;
     }
     public function showDirectores()
     {
-        $this->authHelper->checkLoggedIn();
+        $this->logged = $this->authHelper->isLogged();
         $directors = $this->model->getDirectors();
-        $this->view->renderDirectors($directors);
+        $this->view->renderDirectors($directors, $this->logged);
     }
     function createDirector()
     {
@@ -42,7 +44,7 @@ class DirectorController
             $this->view->renderHomeLocation();
         } catch (Exception) {
             return $this->view->renderError("Error! primero se necesita borrar
-            los capitulos pertenecientes a este director");;
+            los capitulos pertenecientes a este director");
         }
     }
     function editDirector($id)
@@ -53,7 +55,7 @@ class DirectorController
             return;
         }
         $directors = $this->model->getDirectors();
-        $this->view->renderDirectors($directors, $id);
+        $this->view->renderDirectors($directors, null, $id);
     }
     function updateDirector($id)
     {
@@ -66,7 +68,6 @@ class DirectorController
     }
     function viewDirectorInfo($id)
     {
-        $this->authHelper->checkLoggedIn();
         $director = $this->model->getDirector($id);
         $this->view->renderDirectorInfo($director);
     }
@@ -82,7 +83,6 @@ class DirectorController
     }
     public function showListDirectorsByCategory($category)
     {
-        $this->authHelper->checkLoggedIn();
         $directors = $this->model->getListByCategory($category);
         $this->view->renderDirectors($directors);
     }

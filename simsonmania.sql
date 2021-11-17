@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 15, 2021 at 12:44 AM
+-- Generation Time: Nov 17, 2021 at 09:10 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -41,13 +41,32 @@ CREATE TABLE `capitulo` (
 --
 
 INSERT INTO `capitulo` (`id_capitulo`, `nombre`, `temporada`, `estreno`, `gag`, `id_director`) VALUES
-(2, 'La casita del horror VII', 'Temporada 8', '1996-10-27', 'La muerte está sentada en el sofá, y mata a la familia a medida que llegan.', 1),
 (3, 'El cuarteto de Homero', 'Temporada 5', '1993-09-30', 'Salen tres tomas de diferentes gags, de los cuales todos acaban mal: Primero: Todos cuando se chocan se rompen, Segundo: Todo ropa y cuerpo cambia de lugar y está enredado y Tercero: Todos cuando chocan explotan.', 1),
-(94, 'El patriotismo de Lisa', 'Temporada 3', '1991-09-26', 'La familia se sienta, y después Homer saca a Ayudante de Santa de debajo suyo.', 17),
 (95, 'Tres sueños frustrados', 'Temporada 32', '2020-11-22', 'La familia se apresura a ir a casa a su sofá y este les dice rápidamente que \"vayan a dormir a la cama\" \r\ny se marchan con tristeza.', 18),
 (96, 'Un momento de decisión', 'Temporada 1', '1990-03-18', 'Una escena conmovedora, en la que vemos a Homero y Marge reconciliándose, \r\ny además de la clara parodia a \"Un reto al destino.', 19),
 (97, 'Tardes de Trueno', 'Temporada 3', '1991-11-14', 'Los almohadones no están, así que la familia cae dentro del mismo.', 20),
 (98, 'Nuestros años felices', 'Temporada 2', '1991-03-28', 'La familia se encuentra al Abuelo dormido en el sillón.', 19);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comentario`
+--
+
+CREATE TABLE `comentario` (
+  `id_comentario` int(11) NOT NULL,
+  `comentarios` text NOT NULL,
+  `puntuacion` int(11) NOT NULL,
+  `id_capitulo` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `comentario`
+--
+
+INSERT INTO `comentario` (`id_comentario`, `comentarios`, `puntuacion`, `id_capitulo`, `id_usuario`) VALUES
+(1, 'prueba1', 3, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -118,11 +137,7 @@ CREATE TABLE `guionista_de_x_capitulo` (
 --
 
 INSERT INTO `guionista_de_x_capitulo` (`id_guionista_x_capitulo`, `id_capitulo`, `id_guionista`) VALUES
-(1, 2, 1),
-(2, 2, 2),
-(3, 2, 3),
 (4, 3, 4),
-(39, 94, 17),
 (40, 95, 18),
 (41, 96, 19),
 (42, 97, 20),
@@ -140,7 +155,7 @@ CREATE TABLE `usuario` (
   `id_usuario` int(11) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `rol` varchar(100) NOT NULL
+  `rol` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -148,7 +163,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id_usuario`, `email`, `password`, `rol`) VALUES
-(2, 'prueba1@gmail.com', '$2y$10$c8IfwjqJZbajZlyN2HavYu3su8WqG/r56cWy5EKCU3R9966vSM7RG', '');
+(2, 'prueba1@gmail.com', '$2y$10$c8IfwjqJZbajZlyN2HavYu3su8WqG/r56cWy5EKCU3R9966vSM7RG', 1);
 
 --
 -- Indexes for dumped tables
@@ -160,6 +175,12 @@ INSERT INTO `usuario` (`id_usuario`, `email`, `password`, `rol`) VALUES
 ALTER TABLE `capitulo`
   ADD PRIMARY KEY (`id_capitulo`),
   ADD KEY `fk_capitulos_directores` (`id_director`);
+
+--
+-- Indexes for table `comentario`
+--
+ALTER TABLE `comentario`
+  ADD PRIMARY KEY (`id_comentario`);
 
 --
 -- Indexes for table `director`
@@ -195,13 +216,19 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT for table `capitulo`
 --
 ALTER TABLE `capitulo`
-  MODIFY `id_capitulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `id_capitulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+
+--
+-- AUTO_INCREMENT for table `comentario`
+--
+ALTER TABLE `comentario`
+  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `director`
 --
 ALTER TABLE `director`
-  MODIFY `id_director` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_director` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `guionista`
@@ -213,7 +240,7 @@ ALTER TABLE `guionista`
 -- AUTO_INCREMENT for table `guionista_de_x_capitulo`
 --
 ALTER TABLE `guionista_de_x_capitulo`
-  MODIFY `id_guionista_x_capitulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id_guionista_x_capitulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `usuario`

@@ -26,4 +26,5 @@
         </table>
         <br>
         <div class="btn btn-outline-primary"><a href="{BASE_URL}home">Volver</a></div>
+{include file="templates/chapterComments.tpl"}
 {include file="templates/footer.tpl"}

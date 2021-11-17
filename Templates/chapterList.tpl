@@ -16,11 +16,11 @@
                 {if $chapter->id_capitulo === $idToChange}
                     <tr>
                         <form action="{BASE_URL}updateChapter/{$idToChange} "method="post">
-                            <td><input type="text" name="nombreNuevo" id="nombreNuevo" value = "{$chapter->nombre}"></td>
-                            <td><input type="text" name="temporadaNueva" id="temporadaNueva" value = "{$chapter->temporada}"></td>
-                            <td><input type="text" name="estrenoNuevo" id="estrenoNuevo" value = "{$chapter->estreno}"></td>
-                            <td><input type="text" name="gagNuevo" id="gagNuevo" value = "{$chapter->gag}"></td>
-                            <td><select name="id_directorNuevo">
+                            <td><input type="text" name="nombre" id="nombre" value = "{$chapter->nombre}"></td>
+                            <td><input type="text" name="temporada" id="temporada" value = "{$chapter->temporada}"></td>
+                            <td><input type="text" name="estreno" id="estreno" value = "{$chapter->estreno}"></td>
+                            <td><input type="text" name="gag" id="gag" value = "{$chapter->gag}"></td>
+                            <td><select name="id_director">
                             <option value="{$chapter->id_director}">{$chapter->director}</option>
                             {foreach from=$directors item=$director}
                             <option value="{$director->id_director}">{$director->nombre_director}</option>

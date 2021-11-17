@@ -14,14 +14,14 @@
 
     <table id = "tableScreenwriter" class = "tableScreenwriter">
         <tr>
-            <th><a href="listByCategory/nombre">Guionistas</a></th>
+            <th>Guionistas</th>
         </tr>
         {foreach $screenwriters as $screenwriter}
             {if $idToChange != 0}
                 {if $screenwriter->id_guionista === $idToChange}
                     <tr>
                         <form action="{BASE_URL}editScreenwritter/{$idToChange}" method="post">
-                        <td><input type="text" name="nombreNuevo" id="nombreNuevo" value = "{$screenwriter->nombre}"></td>
+                        <td><input type="text" name="nombre" id="nombre" value = "{$screenwriter->nombre}"></td>
                         <td><div><button type="submit" class="btn btn-outline-primary">Confirmar</button></div></td>
                         </form>
                     </tr>
@@ -58,6 +58,6 @@
     <br>
     <br>
     <a href="{BASE_URL}home" class="btn btn-outline-primary" name="enviar"/>Volver a Capitulos
-
+    <script type = "text/javascript" src = "js/screenwriters.js"></script>
     {include file="templates/footer.tpl"}
 </div>

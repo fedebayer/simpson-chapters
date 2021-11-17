@@ -25,11 +25,13 @@ class DirectorController
     }
     function createDirector()
     {
-        if (!isset($_POST['nombre']) || empty($_POST['nombre']) || !isset($_POST['biografia']) || empty($_POST['biografia'])) {
+        $nombre = $_POST['nombre'];
+        $biografia = $_POST['biografia'];
+        if (!isset($nombre) || empty($nombre) || !isset($biografia) || empty($biografia)) {
             $this->view->renderError("Error! contenido de celdas no especificado");
             return;
         }
-        $this->model->addDirector($_POST['nombre'], ($_POST['biografia']));
+        $this->model->addDirector($nombre, ($biografia));
         $this->view->renderHomeLocation();
     }
     function deleteDirector($id)
@@ -59,11 +61,13 @@ class DirectorController
     }
     function updateDirector($id)
     {
-        if (!isset($_POST['nombreNuevo']) || empty($_POST['nombreNuevo']) || !isset($_POST['biografiaNueva']) || empty($_POST['biografiaNueva'])) {
+        $nombre = $_POST['nombre'];
+        $biografia = $_POST['biografia'];
+        if (!isset($nombre) || empty($nombre) || !isset($biografia) || empty($biografia)) {
             $this->view->renderError("Error! contenido de celdas no especificado");
             return;
         }
-        $this->model->updateDirectorFromDB($id, $_POST['nombreNuevo'], $_POST['biografiaNueva']);
+        $this->model->updateDirectorFromDB($id, $nombre, $biografia);
         $this->view->renderHomeLocation();
     }
     function viewDirectorInfo($id)
@@ -73,11 +77,11 @@ class DirectorController
     }
     public function showDirectorChapters()
     {
-        if (!isset($_POST['directorABuscar']) || empty($_POST['directorABuscar'])) {
+        $director = $_POST['directorABuscar'];
+        if (!isset($director) || empty($director)) {
             $this->view->renderError("Error! director no especificado");
             return;
         }
-        $director = $_POST['directorABuscar'];
         $chapters = $this->model->getChaptersByDirector($director);
         $this->view->renderDirectorChapters($director, $chapters);
     }

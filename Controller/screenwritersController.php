@@ -26,13 +26,14 @@ class ScreenwritersController
         $this->view->home($screenwriters, $this->logged);
     }
 
-    function addScreenwriter($name)
+    function addScreenwriter()
     {
-        if (!isset($name) || empty($name)) {
+        $nombre = $_POST['nameScreenwriter'];
+        if (!isset($nombre) || empty($nombre)) {
             $this->view->renderError("Error! contenido de celdas no especificado");
             return;
         }
-        $this->model->addScreenwriter($name);
+        $this->model->addScreenwriter($nombre);
         $this->home();
     }
 
@@ -48,11 +49,12 @@ class ScreenwritersController
 
     function updateScreenwritter($id)
     {
-        if (!isset($_POST['nombreNuevo']) || empty($_POST['nombreNuevo'])) {
+        $nombre = $_POST['nameScreenwriter'];
+        if (!isset($nombre) || empty($nombre)) {
             $this->view->renderError("Error! contenido de celdas no especificado");
             return;
         }
-        $this->model->editScreenwritterDb($id, $_POST['nombreNuevo']);
+        $this->model->editScreenwritterDb($id, $nombre);
         $this->home();
     }
 
@@ -95,14 +97,16 @@ class ScreenwritersController
         $this->model->deleteRelation($id);
     }
 
-    function getScreenwriters(){
+    function getScreenwriters()
+    {
         $data = $this->model->getScreenwriters();
         return $data;
     }
 
-    function editRelations($id, $screenwriters){
+    function editRelations($id, $screenwriters)
+    {
         $this->model->deleteRelation($id);
-        foreach($screenwriters as $screenwriter){
+        foreach ($screenwriters as $screenwriter) {
             $this->model->addRelation($screenwriter, $id);
         }
     }
@@ -111,5 +115,4 @@ class ScreenwritersController
     {
         header("Location: " . BASE_URL . "login");
     }
-
 }

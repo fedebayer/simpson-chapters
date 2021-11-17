@@ -25,10 +25,11 @@ class ChapterView
     {
         header("Location: " . BASE_URL . "home");
     }
-    function renderChapterInfo($chapter, $director)
+    function renderChapterInfo($chapter, $director, $logged = null)
     {
         $this->smarty->assign('chapters', $chapter);
         $this->smarty->assign('director', $director);
+        $this->smarty->assign('logged', $logged);
         $this->smarty->display('templates/chapterInfo.tpl');
     }
     function renderChaptersByDirector($director, $chapters)

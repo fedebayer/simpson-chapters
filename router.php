@@ -31,6 +31,9 @@ switch ($params[0]) {
     case 'signUpAction':
         $loginController->signUp();
         break;
+    case 'usuarios':
+        $loginController->showUsers();
+        break;
     case 'verify':
         $loginController->verifyLogin();
         break;

@@ -16,6 +16,12 @@ class UserModel
         return $query->fetch(PDO::FETCH_OBJ);
     }
 
+    function getUsers(){
+        $query = $this->db->prepare('SELECT * FROM usuario');
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_OBJ);
+    }
+
     function addUser($email, $password){
         $query = $this->db->prepare('INSERT INTO usuario (`email`, `password`) VALUES (?,?)');
         $query->execute([$email, $password]);

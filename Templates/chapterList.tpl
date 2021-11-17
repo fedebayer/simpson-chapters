@@ -87,6 +87,12 @@
         {if !$logged}
             <a href="login" class="btn btn-outline-primary" name="enviar"/>Iniciar sesion
         {/if}
+        {if $rol}
+            <a href="usuarios" class="btn btn-outline-primary" name="enviar"/>Usuarios
+        {/if}
+        {if !$logged}
+            <a href="signUp" class="btn btn-outline-primary" name="enviar"/>Registrarse
+        {/if}
         {if $logged}
             <a href="logout" class="btn btn-outline-danger" name="enviar"/>Cerrar sesion
         {/if}

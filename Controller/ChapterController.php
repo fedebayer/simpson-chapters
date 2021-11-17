@@ -3,6 +3,7 @@ require_once "./Model/ChapterModel.php";
 require_once "./View/ChapterView.php";
 require_once "./Controller/screenwritersController.php";
 require_once "./Controller/DirectorController.php";
+require_once "./Controller/LoginController.php";
 require_once "./Helpers/AuthHelper.php";
 
 class ChapterController
@@ -13,6 +14,8 @@ class ChapterController
     private $directorsController;
     private $authHelper;
     private $logged;
+    private $loginController;
+    private $rol;
 
     public function __construct()
     {
@@ -22,6 +25,9 @@ class ChapterController
         $this->directorsController = new DirectorController();
         $this->authHelper = new AuthHelper();
         $this->logged = false;
+        $this->loginController = new LoginController();
+        $this->rol = $this->loginController->getRol();
+
     }
     public function showHome()
     {
@@ -29,7 +35,7 @@ class ChapterController
         $chapters = $this->model->getChapters();
         $screenwriters = $this->sliceScreenwriters($chapters);
         $directors = $this->directorsController->getDirectors();
-        $this->view->renderChapters($chapters, $directors, $screenwriters, $this->logged);
+        $this->view->renderChapters($chapters, $directors, $screenwriters, $this->rol, $this->logged);
     }
     function createChapter()
     {
@@ -68,7 +74,7 @@ class ChapterController
         $chapters = $this->model->getChapters();
         $directors = $this->directorsController->getDirectors();
         $screenwriters = $this->screenwritersController->getScreenwriters();
-        $this->view->renderChapters($chapters, $directors, $screenwriters, null, $id);
+        $this->view->renderChapters($chapters, $directors, $screenwriters, $this->rol,null, $id);
     }
     function updateChapter($id)
     {
@@ -107,7 +113,7 @@ class ChapterController
         $chapters = $this->model->getListByCategory($category);
         $screenwriters = $this->sliceScreenwriters($chapters);
         $directors = $this->directorsController->getDirectors();
-        $this->view->renderChapters($chapters, $directors, $screenwriters);
+        $this->view->renderChapters($chapters, $directors, $screenwriters, $this->rol);
     }
 
     public function sliceScreenwriters($chapters)

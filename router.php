@@ -25,6 +25,21 @@ switch ($params[0]) {
     case 'logout':
         $loginController->logout();
         break;
+    case 'signUp':
+        $loginController->signUpLoad();
+        break;
+    case 'signUpAction':
+        $loginController->signUp();
+        break;
+    case 'usuarios':
+        $loginController->showUsers();
+        break;
+    case 'updateUser':
+        $loginController->updateUser($params[1]);
+        break;
+    case 'deleteUser':
+        $loginController->deleteUser($params[1]);
+        break;
     case 'verify':
         $loginController->verifyLogin();
         break;

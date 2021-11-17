@@ -92,7 +92,7 @@ class LoginController
         $this->verifyLogin();
         if($this->getRol()){
             $users = $this->model->getUsers();
-            $this->view->showUsers($users);
+            $this->view->showUsers($users, $this->authHelper->getUser());
         }
         else{
             $this->view->showHome();

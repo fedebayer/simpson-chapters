@@ -19,7 +19,8 @@ class UserModel
     function getUsers(){
         $query = $this->db->prepare('SELECT * FROM usuario');
         $query->execute();
-        return $query->fetchAll(PDO::FETCH_OBJ);
+        $users = $query->fetchAll(PDO::FETCH_OBJ);
+        return $users;
     }
 
     function addUser($email, $password){

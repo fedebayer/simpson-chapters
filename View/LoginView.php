@@ -33,8 +33,9 @@ class LoginView
         $this->smarty->display('templates/signUp.tpl');
     }
 
-    function showUsers($users){
+    function showUsers($users, $user){
         $this->smarty->assign('users', $users);
+        $this->smarty->assign('idUser', $user);
         $this->smarty->display('templates/userList.tpl');
     }
 }

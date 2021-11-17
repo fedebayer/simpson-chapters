@@ -22,8 +22,11 @@
                 {/if}
                 {if $user->rol == 2}
                     <td>Administrador</td>
-                    <td><a class="btn btn-outline-danger" href="deleteUser/{$user->id}"> Borrar</a>
-                    <a class="btn btn-outline-danger" href="updateUser/{$user->id}"> Quitar permisos</a></td>
+                    
+                    {if $idUser != $user->email}
+                        <td><a class="btn btn-outline-danger" href="deleteUser/{$user->id}"> Borrar</a>
+                        <a class="btn btn-outline-danger" href="updateUser/{$user->id}"> Quitar permisos</a></td>
+                    {/if}
                 {/if}
             </tr>
         {/foreach}

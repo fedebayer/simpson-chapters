@@ -27,4 +27,9 @@ class LoginView
     {
         header("Location: " . BASE_URL . "home");
     }
+
+    function showSignUp($error = ""){
+        $this->smarty->assign('error', $error);
+        $this->smarty->display('templates/signUp.tpl');
+    }
 }

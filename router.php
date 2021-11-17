@@ -25,6 +25,12 @@ switch ($params[0]) {
     case 'logout':
         $loginController->logout();
         break;
+    case 'signUp':
+        $loginController->signUpLoad();
+        break;
+    case 'signUpAction':
+        $loginController->signUp();
+        break;
     case 'verify':
         $loginController->verifyLogin();
         break;

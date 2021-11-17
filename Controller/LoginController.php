@@ -7,11 +7,13 @@ class LoginController
 
     private $model;
     private $view;
+    private $authHelper;
 
     function __construct()
     {
         $this->model = new UserModel();
         $this->view = new LoginView();
+        $this->authHelper = new AuthHelper();
     }
 
     function logout()
@@ -43,6 +45,41 @@ class LoginController
                 $this->view->showHome();
             } else {
                 $this->view->showLogin("Acceso denegado");
+            }
+        }
+    }
+
+    function signUpLoad(){
+        if($this->authHelper->isLogged()){
+            $this->view->showHome();
+        }
+        else{
+            $this->view->showSignUp();
+        }
+        
+    }
+
+    function signUp(){
+        if($this->authHelper->isLogged()){
+            $this->view->showHome();
+        }
+        else{
+            $email = $_POST['email'];
+            if($this->model->getUser($email)){
+                $this->view->showSignUp("Ya existe un usuario registrado con este email");
+            }
+            else{
+                $password = $_POST['password'];
+                $passwordConfirm = $_POST['passwordConfirm'];
+                if($password != $passwordConfirm){
+                    $this->view->showSignUp("Las contraseñas deben ser iguales");
+                }
+                else{
+                    $this->model->addUser($email, $password);
+                    session_start();
+                    $_SESSION["email"] = $email;
+                    $this->view->showHome();
+                }
             }
         }
     }

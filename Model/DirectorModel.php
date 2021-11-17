@@ -15,8 +15,8 @@ class DirectorModel
     }
     function addDirector($nombre, $biografia)
     {
-        $query = $this->db->prepare('INSERT INTO director(id_director, nombre_director, biografia) VALUES (?,?,?)');
-        $query->execute(array("NULL", $nombre, $biografia));
+        $query = $this->db->prepare('INSERT INTO director(nombre_director, biografia) VALUES (?,?)');
+        $query->execute(array($nombre, $biografia));
     }
     function deleteDirectorFromDB($id)
     {
@@ -25,13 +25,13 @@ class DirectorModel
     }
     function updateDirectorFromDB($id, $nombre, $biografia)
     {
-        $query = $this->db->prepare("UPDATE director SET nombre_director='$nombre', biografia='$biografia' WHERE id_director=?");
-        $query->execute(array($id));
+        $query = $this->db->prepare("UPDATE director SET nombre_director= ?, biografia= ? WHERE id_director=?");
+        $query->execute(array($nombre, $biografia, $id));
     }
     function getDirector($id)
     {
-        $query = $this->db->prepare("SELECT * FROM director WHERE id_director='$id'");
-        $query->execute();
+        $query = $this->db->prepare("SELECT * FROM director WHERE id_director= ?");
+        $query->execute(array($id));
         $director = $query->fetchAll(PDO::FETCH_OBJ);
         return $director;
     }

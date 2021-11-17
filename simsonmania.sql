@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 14, 2021 at 12:07 AM
+-- Generation Time: Oct 15, 2021 at 12:44 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -43,11 +43,11 @@ CREATE TABLE `capitulo` (
 INSERT INTO `capitulo` (`id_capitulo`, `nombre`, `temporada`, `estreno`, `gag`, `id_director`) VALUES
 (2, 'La casita del horror VII', 'Temporada 8', '1996-10-27', 'La muerte está sentada en el sofá, y mata a la familia a medida que llegan.', 1),
 (3, 'El cuarteto de Homero', 'Temporada 5', '1993-09-30', 'Salen tres tomas de diferentes gags, de los cuales todos acaban mal: Primero: Todos cuando se chocan se rompen, Segundo: Todo ropa y cuerpo cambia de lugar y está enredado y Tercero: Todos cuando chocan explotan.', 1),
-(44, 'asfasgfas', 'aaaaa', '2021-09-09', 's', 2),
-(45, 'Quimica', 'aaa', '2021-09-01', 'sss', 9),
-(87, 'testeado', 'testeado', '2021-10-27', 'testeado', 1),
-(92, 'aaa', 'aaaaa', '2021-10-13', 'aaaaa', 14),
-(98, 'bbbbbbb', 'bbbbbbb', '2021-10-07', 'bbbb', 9);
+(94, 'El patriotismo de Lisa', 'Temporada 3', '1991-09-26', 'La familia se sienta, y después Homer saca a Ayudante de Santa de debajo suyo.', 17),
+(95, 'Tres sueños frustrados', 'Temporada 32', '2020-11-22', 'La familia se apresura a ir a casa a su sofá y este les dice rápidamente que \"vayan a dormir a la cama\" \r\ny se marchan con tristeza.', 18),
+(96, 'Un momento de decisión', 'Temporada 1', '1990-03-18', 'Una escena conmovedora, en la que vemos a Homero y Marge reconciliándose, \r\ny además de la clara parodia a \"Un reto al destino.', 19),
+(97, 'Tardes de Trueno', 'Temporada 3', '1991-11-14', 'Los almohadones no están, así que la familia cae dentro del mismo.', 20),
+(98, 'Nuestros años felices', 'Temporada 2', '1991-03-28', 'La familia se encuentra al Abuelo dormido en el sillón.', 19);
 
 -- --------------------------------------------------------
 
@@ -66,12 +66,12 @@ CREATE TABLE `director` (
 --
 
 INSERT INTO `director` (`id_director`, `nombre_director`, `biografia`) VALUES
-(1, 'Mike B. Anderson', 'es un director de televisión estadounidense, reconocido principalmente por su trabajo en la serie animada Los Simpson. Ha dirigido varios episodios del programa, e incluso fue animado en el episodio La guerra secreta de Lisa Simpson como el cadete Anderson.'),
+(1, 'Mike B. Anderson', 'Mike B. Anderson, en ocasiones conocido bajo el pseudónimo de Mikel B. Anderson, es un director de televisión estadounidense, reconocido principalmente por su trabajo en la serie animada Los Simpson.'),
 (2, 'Mark Kirkland', 'Mark Kirkland es el director de numerosos episodios de la serie animada Los Simpson. En 2005, había dirigido 58 episodios, más que cualquier otro director, siendo una cantidad similar a los episodios escritos por John Swartzwelder. También estuvo trabajando en el programa como director durante más tiempo que el resto de los creadores, con la excepción de David Silverman, ya que dirigió episodios desde la segunda temporada. '),
-(7, 'PruebaDirector1', 'aaaaaaaaaaaaaaa'),
-(9, 'PruebaDirector3', 'bbbbbbbbbbbbbbbbbbb'),
-(14, 'aaaasss', 'aaaaaassss'),
-(17, 'ffffffaas', 'aaaaaaaaa');
+(17, 'Wes Archer', 'Wesley Wes Meyer Archer es un director de televisión. Fue uno de los encargados de animación originales (junto con David Silverman y Bill Kopp) con los cortos de Los Simpson.'),
+(18, 'Steven Dean Moore', 'Steven Dean Moore es un director de animación estadounidense, cuyo principal trabajo ha sido el de director en la serie de animación Los Simpson y en la película de la serie Los Simpson: la película.'),
+(19, 'David Silverman', 'David Silverman es un productor y director de cine y televisión. Generalmente trabaja con películas con animación en 2D y 3D. Silverman se hizo conocido por su labor en la reconocida Serie animada Los Simpson en donde sirve como productor y director.'),
+(20, 'Jim Reardon', 'Jim Reardon es un director y guionista reconocido por su trabajo en la serie animada Los Simpson. Ha dirigido más de treinta episodios de la serie y fue el director principal desde la novena temporada hasta la decimoquinta.');
 
 -- --------------------------------------------------------
 
@@ -93,9 +93,13 @@ INSERT INTO `guionista` (`id_guionista`, `nombre`) VALUES
 (2, 'Dan Greaney'),
 (3, 'David S. Cohen'),
 (4, 'Jeff Martin'),
-(5, 'ads'),
-(17, 'fffffff'),
-(18, 'aaaa');
+(17, 'George Meyer'),
+(18, 'Danielle Weisberg'),
+(19, 'John Swartzwelder'),
+(20, 'Ken Levine'),
+(21, 'David Isaacs'),
+(22, 'Jay Kogen'),
+(23, 'Wallace Wolodarsky');
 
 -- --------------------------------------------------------
 
@@ -118,12 +122,13 @@ INSERT INTO `guionista_de_x_capitulo` (`id_guionista_x_capitulo`, `id_capitulo`,
 (2, 2, 2),
 (3, 2, 3),
 (4, 3, 4),
-(5, 45, 5),
-(6, 45, 2),
-(21, 87, 5),
-(28, 92, 2),
-(37, 98, 1),
-(38, 98, 2);
+(39, 94, 17),
+(40, 95, 18),
+(41, 96, 19),
+(42, 97, 20),
+(43, 97, 21),
+(44, 98, 22),
+(45, 98, 23);
 
 -- --------------------------------------------------------
 
@@ -143,7 +148,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id_usuario`, `email`, `password`, `rol`) VALUES
-(1, 'prueba1@gmail.com', '$2y$10$c8IfwjqJZbajZlyN2HavYu3su8WqG/r56cWy5EKCU3R9966vSM7RG', 'admin');
+(2, 'prueba1@gmail.com', '$2y$10$c8IfwjqJZbajZlyN2HavYu3su8WqG/r56cWy5EKCU3R9966vSM7RG', '');
 
 --
 -- Indexes for dumped tables
@@ -196,25 +201,25 @@ ALTER TABLE `capitulo`
 -- AUTO_INCREMENT for table `director`
 --
 ALTER TABLE `director`
-  MODIFY `id_director` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_director` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `guionista`
 --
 ALTER TABLE `guionista`
-  MODIFY `id_guionista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_guionista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `guionista_de_x_capitulo`
 --
 ALTER TABLE `guionista_de_x_capitulo`
-  MODIFY `id_guionista_x_capitulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id_guionista_x_capitulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables

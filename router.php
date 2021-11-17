@@ -6,12 +6,12 @@ require_once "Controller/DirectorController.php";
 require_once "Controller/screenwritersController.php";
 require_once "Controller/LoginController.php";
 
-if (!empty($_GET['action'])) {
-    $action = $_GET['action'];
+if (!empty($_GET['resource'])) {
+    $resource = $_GET['resource'];
 } else {
-    $action = 'home';
+    $resource = 'home';
 }
-$params = explode('/', $action);
+$params = explode('/', $resource);
 
 $chapterController = new chapterController();
 $directorController = new directorController();
@@ -82,7 +82,7 @@ switch ($params[0]) {
         $screenwritersController->home();
         break;
     case 'addScreenwriter':
-        $screenwritersController->addScreenwriter($_POST['nameScreenwriter']);
+        $screenwritersController->addScreenwriter();
         break;
     case 'getChaptersOfScreenwritter':
         $screenwritersController->getChaptersOfScreenwritter($params[1]);

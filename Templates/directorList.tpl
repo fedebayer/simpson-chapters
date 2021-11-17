@@ -14,8 +14,8 @@
                 {if $director->id_director === $idToChange}
                     <tr>
                         <form action="{BASE_URL}updateDirector/{$idToChange}" method="post">
-                        <td><input type="text" name="nombreNuevo" id="nombreNuevo" value = "{$director->nombre_director}"></td>
-                        <td><input type="text" name="biografiaNueva" id="biografiaNueva" value = "{$director->biografia}"></td>
+                        <td><input type="text" name="nombre" id="nombre" value = "{$director->nombre_director}"></td>
+                        <td><input type="text" name="biografia" id="biografia" value = "{$director->biografia}"></td>
                         <td><div><button type="submit" class="btn btn-outline-primary">Confirmar</button></div></td>
                         </form>
                     </tr>

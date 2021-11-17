@@ -15,8 +15,8 @@ class ChapterModel
     }
     function addChapter($nombre, $temporada, $estreno, $gag, $id_director)
     {
-        $query = $this->db->prepare('INSERT INTO capitulo(id_capitulo, nombre, temporada, estreno, gag, id_director) VALUES (?,?,?,?,?,?)');
-        $query->execute(array("NULL", $nombre, $temporada, $estreno, $gag, $id_director));
+        $query = $this->db->prepare('INSERT INTO capitulo(nombre, temporada, estreno, gag, id_director) VALUES (?,?,?,?,?)');
+        $query->execute(array($nombre, $temporada, $estreno, $gag, $id_director));
         return $this->db->lastInsertId();
     }
     function deleteChapterFromDB($id)
@@ -26,8 +26,8 @@ class ChapterModel
     }
     function updateChapterFromDB($id, $nombre, $temporada, $estreno, $gag, $id_director)
     {
-        $query = $this->db->prepare("UPDATE capitulo SET nombre='$nombre', temporada='$temporada', estreno='$estreno', gag='$gag', id_director='$id_director' WHERE id_capitulo=?");
-        $query->execute(array($id));
+        $query = $this->db->prepare("UPDATE capitulo SET nombre= ?, temporada= ?, estreno= ?, gag= ?, id_director= ? WHERE id_capitulo=?");
+        $query->execute(array($nombre, $temporada, $estreno, $gag, $id_director, $id));
     }
     function getChapter($id)
     {
@@ -50,5 +50,4 @@ class ChapterModel
         $chapters = $query->fetchAll(PDO::FETCH_OBJ);
         return $chapters;
     }
-    
 }

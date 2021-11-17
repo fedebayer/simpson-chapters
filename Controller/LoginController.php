@@ -83,4 +83,8 @@ class LoginController
             }
         }
     }
+
+    function getRol(){
+        return $this->model->getUser($this->authHelper->getUser()); 
+    }
 }

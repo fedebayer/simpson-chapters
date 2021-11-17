@@ -98,4 +98,46 @@ class LoginController
             $this->view->showHome();
         }
     }
+
+    function updateUser($id){
+        $this->verifyLogin();
+        $user = $this->getRol();
+        $userToEdit = $this->model->getUserFromId($id);
+        if($user->rol == 1 || $user->rol == 2){
+            if($user->id_usuario != $id && $userToEdit->rol != 1){
+                if($userToEdit->rol == 2){
+                    $this->model->updatePrivileges($id, 0);
+                    $this->showUsers();
+                }
+                else{
+                    $this->model->updatePrivileges($id, 2);
+                    $this->showUsers();
+                }
+            }
+            else{
+                $this->view->showHome();
+            }
+        }
+        else{
+            $this->view->showHome();
+        }
+    }
+
+    function deleteUser($id){
+        $this->verifyLogin();
+        $user = $this->getRol();
+        $userToDelete = $this->model->getUserFromId($id);
+        if($user->rol == 1 || $user->rol == 2){
+            if($user->id_usuario != $userToDelete->id_usuario && $userToDelete->rol != 1){
+                $this->model->deleteUser($id);
+                $this->showUsers();
+            }
+            else{
+                $this->view->showHome();
+            }
+        }
+        else{
+            $this->view->showHome();
+        }
+    }
 }

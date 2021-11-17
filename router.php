@@ -34,6 +34,12 @@ switch ($params[0]) {
     case 'usuarios':
         $loginController->showUsers();
         break;
+    case 'updateUser':
+        $loginController->updateUser($params[1]);
+        break;
+    case 'deleteUser':
+        $loginController->deleteUser($params[1]);
+        break;
     case 'verify':
         $loginController->verifyLogin();
         break;

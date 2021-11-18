@@ -48,7 +48,12 @@ switch ($params[0]) {
         $loginController->verifyLogin();
         break;
     case 'home':
-        $chapterController->showHome();
+        if(isset($params[1])){
+            $chapterController->showHome($params[1]);
+        }
+        else{
+            $chapterController->showHome(1);
+        }
         break;
     case 'createChapter':
         $chapterController->createChapter();
@@ -57,7 +62,7 @@ switch ($params[0]) {
         $chapterController->deleteChapter($params[1]);
         break;
     case 'goToUpdateChapter':
-        $chapterController->editChapter($params[1]);
+        $chapterController->editChapter($params[2], $params[1]);
         break;
     case 'updateChapter':
         $chapterController->updateChapter($params[1]);

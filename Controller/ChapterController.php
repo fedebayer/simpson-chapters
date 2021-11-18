@@ -29,13 +29,12 @@ class ChapterController
         $this->rol = $this->loginController->getRol()->rol;
 
     }
-    public function showHome()
+    public function showHome($currentPage)
     {
         $this->logged = $this->authHelper->isLogged();
-        $chapters = $this->model->getChapters();
-        $screenwriters = $this->sliceScreenwriters($chapters);
+        $screenwriters = $this->screenwritersController->getScreenwriters();
         $directors = $this->directorsController->getDirectors();
-        $this->view->renderChapters($chapters, $directors, $screenwriters, $this->rol, $this->logged);
+        $this->renderChapters($currentPage, $directors, $screenwriters, $this->rol, $this->logged, null);
     }
     function createChapter()
     {
@@ -64,17 +63,16 @@ class ChapterController
         $this->model->deleteChapterFromDB($id);
         $this->view->renderHomeLocation();
     }
-    function editChapter($id)
+    function editChapter($id, $currentPage)
     {
         $this->authHelper->checkLoggedIn();
         if (!isset($id) || empty($id)) {
             $this->view->renderError("Error! contenido a editar no especificado");
             return;
         }
-        $chapters = $this->model->getChapters();
         $directors = $this->directorsController->getDirectors();
         $screenwriters = $this->screenwritersController->getScreenwriters();
-        $this->view->renderChapters($chapters, $directors, $screenwriters, $this->rol,null, $id);
+        $this->renderChapters($currentPage,$directors, $screenwriters, $this->rol, null, $id);
     }
     function updateChapter($id)
     {
@@ -111,35 +109,27 @@ class ChapterController
     public function showListByCategory($category)
     {
         $chapters = $this->model->getListByCategory($category);
-        $screenwriters = $this->sliceScreenwriters($chapters);
+        $screenwriters = $this->screenwritersController->getScreenwriters();
         $directors = $this->directorsController->getDirectors();
-        $this->view->renderChapters($chapters, $directors, $screenwriters, $this->rol);
+        //$this->view->renderChapters($chapters, $directors, $screenwriters, $this->rol);
     }
 
-    public function sliceScreenwriters($chapters)
-    {
-        $screenwriters = [];
-        $finalNames = [];
-        $finalIds = [];
-        foreach ($chapters as $chapter) {
-            $names = explode(",", $chapter->guionistas);
-            $ids = explode(",", $chapter->id_guionistas);
-
-            for ($i = 0; $i < count($ids); $i++) {
-                if (in_array($ids[$i], $finalNames)) {
-                } else {
-                    array_push($finalNames, $names[$i]);
-                    array_push($finalIds, $ids[$i]);
-                    $newScreenwriter = array('idScreenwriter' => $ids[$i], 'screenwriterName' => $names[$i]);
-                    array_push($screenwriters, $newScreenwriter);
-                }
-            }
-        }
-
-        return $screenwriters;
-    }
     function showLoginLocation()
     {
         header("Location: " . BASE_URL . "login");
+    }
+
+    function renderChapters($currentPage, $directors, $screenwriters, $rol, $logged, $id){
+        if($currentPage == null){
+            $currentPage = 1;
+        }
+        $size = 3;
+        $pages = round((count($this->model->getAllChapters())) / $size, 0, PHP_ROUND_HALF_UP);
+        if($currentPage > $pages){
+            header("Location: " . BASE_URL . "home");
+        }
+        $beginning = ($currentPage - 1) * $size;
+        $chapters = $this->model->getChapters($beginning, $size);
+        $this->view->renderChapters($chapters, $directors, $screenwriters, $rol, $pages, $currentPage, $logged, $id);
     }
 }

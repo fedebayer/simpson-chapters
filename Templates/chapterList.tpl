@@ -45,12 +45,30 @@
                     <td><a class="btn btn-outline-success" href="viewChapterInfo/{$chapter->id_capitulo}/{$chapter->director}"> Info</a></td>
                     {if $logged}
                         <td><a class="btn btn-outline-danger" href="deleteChapter/{$chapter->id_capitulo}"> Borrar</a></td>
-                        <td><a class="btn btn-outline-info" href="goToUpdateChapter/{$chapter->id_capitulo}"> Editar</a></td>
+                        <td><a class="btn btn-outline-info" href="goToUpdateChapter/{$page}/{$chapter->id_capitulo}"> Editar</a></td>
                     {/if}
                 </tr>
             {/if}
     {/foreach}
     </table>
+    <br>
+        <nav>
+            <ul class = "pagination pagination-mg">
+                {if $page == 1} <li class = "page-item disabled"><a class = "page-link" href = 'home'>Anterior</a></li>
+                {else} <li class = "page-item"><a class = "page-link" href = 'home/{$page-1}'>Anterior</a></li>
+                {/if}
+                {for $i = 1 to $pages}
+                    {if $i != $page}
+                        <li class = "page-item"><a class = "page-link" href = 'home/{$i}'>{$i}</a></li>
+                        {else} <li class = "page-item active"><a class = "page-link">{$i}</a></li> 
+                    {/if}
+                {/for}
+                {if $page == $pages} <li class = "page-item disabled"><a class = "page-link" href = 'home'>Siguiente</a></li>
+                {else} <li class = "page-item"><a class = "page-link" href = 'home/{$page+1}'>Siguiente else</a></li>
+                {/if}
+                
+            </ul>
+        </nav>
         <br>
         <h2>Buscar Capitulos de Director</h2>
         <form action="searchChaptersOfDirector" method="post">
@@ -74,8 +92,8 @@
                 </select>
                 
                 {foreach from=$screenwriters item=$screenwriter}
-                    {if $screenwriter['idScreenwriter'] != ''}
-                        <input type="checkbox" name = "screenwriters[]" value="{$screenwriter['idScreenwriter']}">{$screenwriter['screenwriterName']}
+                    {if $screenwriter->id_guionista != ''}
+                        <input type="checkbox" name = "screenwriters[]" value="{$screenwriter->id_guionista}">{$screenwriter->nombre}
                     {/if}
                 {/foreach}
                 <input type="submit" class="btn btn-outline-primary" name="enviar">

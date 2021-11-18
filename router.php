@@ -32,13 +32,17 @@ switch ($params[0]) {
         $loginController->signUp();
         break;
     case 'usuarios':
-        $loginController->showUsers();
-        break;
-    case 'updateUser':
-        $loginController->updateUser($params[1]);
-        break;
-    case 'deleteUser':
-        $loginController->deleteUser($params[1]);
+        if(isset($params[1])){
+            if($params[1] == 'updateUser'){
+                $loginController->updateUser($params[2]);
+            }
+            if($params[1] == 'deleteUser'){
+                $loginController->deleteUser($params[2]);
+            }
+        }
+        else{
+            $loginController->showUsers();
+        }
         break;
     case 'verify':
         $loginController->verifyLogin();

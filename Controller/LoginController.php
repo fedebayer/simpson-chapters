@@ -29,15 +29,19 @@ class LoginController
 
     function verifyLogin()
     {
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        if (!empty($email) && !empty($password)) {
+        if (!empty($_POST['email']) && !empty($_POST['password'])) {
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+
             // Obtengo el usuario de la base de datos
             $user = $this->model->getUser($email);
+
             // Si el usuario existe y las contraseñas coinciden
             if ($user && password_verify($password, $user->password)) {
+
                 session_start();
                 $_SESSION["email"] = $email;
+
                 $this->view->showHome();
             } else {
                 $this->view->showLogin("Acceso denegado");
@@ -71,7 +75,7 @@ class LoginController
                     $this->view->showSignUp("Las contraseñas deben ser iguales");
                 }
                 else{
-                    $this->model->addUser($email, $password);
+                    $this->model->addUser($email, password_hash($password, PASSWORD_BCRYPT));
                     session_start();
                     $_SESSION["email"] = $email;
                     $this->view->showHome();

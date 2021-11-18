@@ -26,7 +26,7 @@ class ChapterController
         $this->authHelper = new AuthHelper();
         $this->logged = false;
         $this->loginController = new LoginController();
-        $this->rol = $this->loginController->getRol();
+        $this->rol = $this->loginController->getRol()->rol;
 
     }
     public function showHome()

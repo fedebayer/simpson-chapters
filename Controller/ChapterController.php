@@ -38,15 +38,17 @@ class ChapterController
     }
     function createChapter()
     {
-        $nombre = $_POST['nombre'];
-        $temporada = $_POST['temporada'];
-        $estreno = $_POST['estreno'];
-        $gag = $_POST['gag'];
-        $id_director = $_POST['id_director'];
-        $screenwriters = $_POST['screenwriters'];
-        if (!isset($nombre) || empty($nombre) || !isset($temporada) || empty($temporada) || !isset($estreno) || empty($estreno) || !isset($gag) || empty($gag) || !isset($id_director) || empty($id_director) || !isset($screenwriters) || empty($screenwriters)) {
+        if (!isset($_POST['nombre']) || empty($_POST['nombre']) || !isset($_POST['temporada']) || empty($_POST['temporada']) || !isset($_POST['estreno']) || empty($_POST['estreno']) || !isset($_POST['gag']) || empty($_POST['gag']) || !isset($_POST['id_director']) || empty($_POST['id_director']) || !isset($_POST['screenwriters']) || empty($_POST['screenwriters'])) {
             $this->view->renderError("Error! contenido de celdas no especificado");
             return;
+        }
+        else{
+            $nombre = $_POST['nombre'];
+            $temporada = $_POST['temporada'];
+            $estreno = $_POST['estreno'];
+            $gag = $_POST['gag'];
+            $id_director = $_POST['id_director'];
+            $screenwriters = $_POST['screenwriters'];
         }
         $id = $this->model->addChapter($nombre, $temporada, $estreno, $gag, $id_director);
         $this->view->renderHomeLocation();
@@ -75,17 +77,20 @@ class ChapterController
         $this->renderChapters($currentPage,$directors, $screenwriters, $this->rol, null, $id);
     }
     function updateChapter($id)
-    {
-        $nombre = $_POST['nombre'];
-        $temporada = $_POST['temporada'];
-        $estreno = $_POST['estreno'];
-        $gag = $_POST['gag'];
-        $id_director = $_POST['id_director'];
-        $screenwriters = $_POST['screenwriters'];
-        if (!isset($nombre) || empty($nombre) || !isset($temporada) || empty($temporada) || !isset($estreno) || empty($estreno) || !isset($gag) || empty($gag) || !isset($id_director) || empty($id_director) || !isset($screenwriters) || empty($screenwriters)) {
+    { 
+        if (!isset($_POST['nombre']) || empty($_POST['nombre']) || !isset($_POST['temporada']) || empty($_POST['temporada']) || !isset($_POST['estreno']) || empty($_POST['estreno']) || !isset($_POST['gag']) || empty($_POST['gag']) || !isset($_POST['id_director']) || empty($_POST['id_director']) || !isset($_POST['screenwriters']) || empty($_POST['screenwriters'])) {
             $this->view->renderError("Error! contenido de celdas no especificado");
             return;
         }
+        else{
+            $nombre = $_POST['nombre'];
+            $temporada = $_POST['temporada'];
+            $estreno = $_POST['estreno'];
+            $gag = $_POST['gag'];
+            $id_director = $_POST['id_director'];
+            $screenwriters = $_POST['screenwriters'];
+        }
+        
         $this->model->updateChapterFromDB($id, $nombre, $temporada, $estreno, $gag, $id_director);
         $this->screenwritersController->editRelations($id, $screenwriters);
         $this->view->renderHomeLocation();
@@ -124,7 +129,7 @@ class ChapterController
             $currentPage = 1;
         }
         $size = 3;
-        $pages = round((count($this->model->getAllChapters())) / $size, 0, PHP_ROUND_HALF_UP);
+        $pages = ceil((count($this->model->getAllChapters())) / $size);
         if($currentPage > $pages){
             header("Location: " . BASE_URL . "home");
         }

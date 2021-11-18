@@ -64,7 +64,7 @@
                     {/if}
                 {/for}
                 {if $page == $pages} <li class = "page-item disabled"><a class = "page-link" href = 'home'>Siguiente</a></li>
-                {else} <li class = "page-item"><a class = "page-link" href = 'home/{$page+1}'>Siguiente else</a></li>
+                {else} <li class = "page-item"><a class = "page-link" href = 'home/{$page+1}'>Siguiente</a></li>
                 {/if}
                 
             </ul>

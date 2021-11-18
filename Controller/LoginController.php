@@ -47,6 +47,9 @@ class LoginController
                 $this->view->showLogin("Acceso denegado");
             }
         }
+        else {
+            $this->view->showLogin("Debe ingresar email y contraseña");
+        }
     }
 
     function signUpLoad(){
@@ -64,21 +67,26 @@ class LoginController
             $this->view->showHome();
         }
         else{
-            $email = $_POST['email'];
-            if($this->model->getUser($email)){
-                $this->view->showSignUp("Ya existe un usuario registrado con este email");
+            if(!isset($_POST['email'])){
+                $this->view->showSignUp("Email no encontrado");
             }
             else{
-                $password = $_POST['password'];
-                $passwordConfirm = $_POST['passwordConfirm'];
-                if($password != $passwordConfirm){
-                    $this->view->showSignUp("Las contraseñas deben ser iguales");
+                $email = $_POST['email'];
+                if($this->model->getUser($email)){
+                    $this->view->showSignUp("Ya existe un usuario registrado con este email");
                 }
                 else{
-                    $this->model->addUser($email, $password);
-                    session_start();
-                    $_SESSION["email"] = $email;
-                    $this->view->showHome();
+                    $password = $_POST['password'];
+                    $passwordConfirm = $_POST['passwordConfirm'];
+                    if($password != $passwordConfirm){
+                        $this->view->showSignUp("Las contraseñas deben ser iguales");
+                    }
+                    else{
+                        $this->model->addUser($email, $password);
+                        session_start();
+                        $_SESSION["email"] = $email;
+                        $this->view->showHome();
+                    }
                 }
             }
         }

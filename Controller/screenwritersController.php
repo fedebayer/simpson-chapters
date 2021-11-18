@@ -28,10 +28,12 @@ class ScreenwritersController
 
     function addScreenwriter()
     {
-        $nombre = $_POST['nameScreenwriter'];
-        if (!isset($nombre) || empty($nombre)) {
+        if (!isset($_POST['nameScreenwriter']) || empty($_POST['nameScreenwriter'])) {
             $this->view->renderError("Error! contenido de celdas no especificado");
             return;
+        }
+        else{
+            $nombre = $_POST['nameScreenwriter'];
         }
         $this->model->addScreenwriter($nombre);
         $this->home();
@@ -43,16 +45,21 @@ class ScreenwritersController
             $this->view->renderError("Error! guionista no especificado");
             return;
         }
-        $data = $this->model->getChaptersOfScreenwritter($id);
-        $this->view->loadChaptersOfScreenwritter($data);
+        else{
+            $data = $this->model->getChaptersOfScreenwritter($id);
+            $this->view->loadChaptersOfScreenwritter($data);
+            return $data;
+        }
     }
 
     function updateScreenwritter($id)
     {
-        $nombre = $_POST['nameScreenwriter'];
-        if (!isset($nombre) || empty($nombre)) {
+        if (!isset($_POST['nameScreenwriter']) || empty($_POST['nameScreenwriter'])) {
             $this->view->renderError("Error! contenido de celdas no especificado");
             return;
+        }
+        else{
+            $nombre = $_POST['nameScreenwriter'];
         }
         $this->model->editScreenwritterDb($id, $nombre);
         $this->home();

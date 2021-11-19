@@ -27,7 +27,6 @@ class ChapterController
         $this->logged = false;
         $this->loginController = new LoginController();
         $this->rol = $this->loginController->getRol()->rol;
-
     }
     public function showHome($currentPage)
     {
@@ -41,8 +40,7 @@ class ChapterController
         if (!isset($_POST['nombre']) || empty($_POST['nombre']) || !isset($_POST['temporada']) || empty($_POST['temporada']) || !isset($_POST['estreno']) || empty($_POST['estreno']) || !isset($_POST['gag']) || empty($_POST['gag']) || !isset($_POST['id_director']) || empty($_POST['id_director']) || !isset($_POST['screenwriters']) || empty($_POST['screenwriters'])) {
             $this->view->renderError("Error! contenido de celdas no especificado");
             return;
-        }
-        else{
+        } else {
             $nombre = $_POST['nombre'];
             $temporada = $_POST['temporada'];
             $estreno = $_POST['estreno'];
@@ -74,15 +72,14 @@ class ChapterController
         }
         $directors = $this->directorsController->getDirectors();
         $screenwriters = $this->screenwritersController->getScreenwriters();
-        $this->renderChapters($currentPage,$directors, $screenwriters, $this->rol, null, $id);
+        $this->renderChapters($currentPage, $directors, $screenwriters, $this->rol, null, $id);
     }
     function updateChapter($id)
-    { 
+    {
         if (!isset($_POST['nombre']) || empty($_POST['nombre']) || !isset($_POST['temporada']) || empty($_POST['temporada']) || !isset($_POST['estreno']) || empty($_POST['estreno']) || !isset($_POST['gag']) || empty($_POST['gag']) || !isset($_POST['id_director']) || empty($_POST['id_director']) || !isset($_POST['screenwriters']) || empty($_POST['screenwriters'])) {
             $this->view->renderError("Error! contenido de celdas no especificado");
             return;
-        }
-        else{
+        } else {
             $nombre = $_POST['nombre'];
             $temporada = $_POST['temporada'];
             $estreno = $_POST['estreno'];
@@ -90,7 +87,7 @@ class ChapterController
             $id_director = $_POST['id_director'];
             $screenwriters = $_POST['screenwriters'];
         }
-        
+
         $this->model->updateChapterFromDB($id, $nombre, $temporada, $estreno, $gag, $id_director);
         $this->screenwritersController->editRelations($id, $screenwriters);
         $this->view->renderHomeLocation();
@@ -98,8 +95,9 @@ class ChapterController
     function viewChapterInfo($id, $director)
     {
         $this->logged = $this->authHelper->isLogged();
+        $userId = $this->loginController->getId();
         $chapter = $this->model->getChapter($id);
-        $this->view->renderChapterInfo($chapter, $director, $this->logged);
+        $this->view->renderChapterInfo($chapter, $director, $this->logged, $userId);
     }
     public function showChaptersByDirector()
     {
@@ -124,13 +122,14 @@ class ChapterController
         header("Location: " . BASE_URL . "login");
     }
 
-    function renderChapters($currentPage, $directors, $screenwriters, $rol, $logged, $id){
-        if($currentPage == null){
+    function renderChapters($currentPage, $directors, $screenwriters, $rol, $logged, $id)
+    {
+        if ($currentPage == null) {
             $currentPage = 1;
         }
         $size = 3;
         $pages = ceil((count($this->model->getAllChapters())) / $size);
-        if($currentPage > $pages){
+        if ($currentPage > $pages) {
             header("Location: " . BASE_URL . "home");
         }
         $beginning = ($currentPage - 1) * $size;

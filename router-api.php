@@ -11,10 +11,10 @@ $router = new Router();
 // tabla de ruteo
 $router->addRoute('capitulos/comentarios', 'GET', 'ApiCommentController', 'getAll');
 $router->addRoute('capitulos/:ID_CAPITULO/comentarios', 'GET', 'ApiCommentController', 'getCommentsByChapterId');
-$router->addRoute('capitulos/:ID_CAPITULO/comentarios/:ID', 'GET', 'ApiCommentController', 'getOne');
-$router->addRoute('capitulos/:ID_CAPITULO/comentarios/:ID', 'DELETE', 'ApiCommentController', 'remove');
-$router->addRoute('capitulos/:ID_CAPITULO/comentarios', "POST", 'ApiCommentController', 'addComment');
-$router->addRoute('capitulos/:ID_CAPITULO/comentarios/:ID', "PUT", 'ApiCommentController', 'updateComment');
+$router->addRoute('capitulos/comentarios/:ID', 'GET', 'ApiCommentController', 'getOne');
+$router->addRoute('capitulos/comentarios/:ID', 'DELETE', 'ApiCommentController', 'remove');
+$router->addRoute('capitulos/comentarios', "POST", 'ApiCommentController', 'addComment');
+$router->addRoute('capitulos/comentarios/:ID', "PUT", 'ApiCommentController', 'updateComment');
 
 
 // rutea

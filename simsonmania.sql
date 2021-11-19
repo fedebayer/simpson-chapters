@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 17, 2021 at 09:10 PM
+-- Generation Time: Nov 19, 2021 at 12:25 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -41,7 +41,9 @@ CREATE TABLE `capitulo` (
 --
 
 INSERT INTO `capitulo` (`id_capitulo`, `nombre`, `temporada`, `estreno`, `gag`, `id_director`) VALUES
+(2, 'La casita del horror VII', 'Temporada 8', '1996-10-27', 'La muerte está sentada en el sofá, y mata a la familia a medida que llegan.', 1),
 (3, 'El cuarteto de Homero', 'Temporada 5', '1993-09-30', 'Salen tres tomas de diferentes gags, de los cuales todos acaban mal: Primero: Todos cuando se chocan se rompen, Segundo: Todo ropa y cuerpo cambia de lugar y está enredado y Tercero: Todos cuando chocan explotan.', 1),
+(94, 'El patriotismo de Lisa', 'Temporada 3', '1991-09-26', 'La familia se sienta, y después Homer saca a Ayudante de Santa de debajo suyo.', 17),
 (95, 'Tres sueños frustrados', 'Temporada 32', '2020-11-22', 'La familia se apresura a ir a casa a su sofá y este les dice rápidamente que \"vayan a dormir a la cama\" \r\ny se marchan con tristeza.', 18),
 (96, 'Un momento de decisión', 'Temporada 1', '1990-03-18', 'Una escena conmovedora, en la que vemos a Homero y Marge reconciliándose, \r\ny además de la clara parodia a \"Un reto al destino.', 19),
 (97, 'Tardes de Trueno', 'Temporada 3', '1991-11-14', 'Los almohadones no están, así que la familia cae dentro del mismo.', 20),
@@ -66,7 +68,7 @@ CREATE TABLE `comentario` (
 --
 
 INSERT INTO `comentario` (`id_comentario`, `comentarios`, `puntuacion`, `id_capitulo`, `id_usuario`) VALUES
-(1, 'prueba1', 3, 0, 0);
+(2, 'prueba1', 5, 3, 2);
 
 -- --------------------------------------------------------
 
@@ -137,7 +139,11 @@ CREATE TABLE `guionista_de_x_capitulo` (
 --
 
 INSERT INTO `guionista_de_x_capitulo` (`id_guionista_x_capitulo`, `id_capitulo`, `id_guionista`) VALUES
+(1, 2, 1),
+(2, 2, 2),
+(3, 2, 3),
 (4, 3, 4),
+(39, 94, 17),
 (40, 95, 18),
 (41, 96, 19),
 (42, 97, 20),
@@ -180,7 +186,9 @@ ALTER TABLE `capitulo`
 -- Indexes for table `comentario`
 --
 ALTER TABLE `comentario`
-  ADD PRIMARY KEY (`id_comentario`);
+  ADD PRIMARY KEY (`id_comentario`),
+  ADD KEY `fk_comentario_usuario` (`id_usuario`),
+  ADD KEY `fk_comentario_capitulo` (`id_capitulo`);
 
 --
 -- Indexes for table `director`
@@ -216,19 +224,19 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT for table `capitulo`
 --
 ALTER TABLE `capitulo`
-  MODIFY `id_capitulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+  MODIFY `id_capitulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 
 --
 -- AUTO_INCREMENT for table `comentario`
 --
 ALTER TABLE `comentario`
-  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `director`
 --
 ALTER TABLE `director`
-  MODIFY `id_director` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_director` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `guionista`
@@ -240,7 +248,7 @@ ALTER TABLE `guionista`
 -- AUTO_INCREMENT for table `guionista_de_x_capitulo`
 --
 ALTER TABLE `guionista_de_x_capitulo`
-  MODIFY `id_guionista_x_capitulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id_guionista_x_capitulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `usuario`
@@ -257,6 +265,13 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `capitulo`
   ADD CONSTRAINT `fk_capitulos_directores` FOREIGN KEY (`id_director`) REFERENCES `director` (`id_director`);
+
+--
+-- Constraints for table `comentario`
+--
+ALTER TABLE `comentario`
+  ADD CONSTRAINT `fk_comentario_capitulo` FOREIGN KEY (`id_capitulo`) REFERENCES `capitulo` (`id_capitulo`),
+  ADD CONSTRAINT `fk_comentario_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`);
 
 --
 -- Constraints for table `guionista_de_x_capitulo`

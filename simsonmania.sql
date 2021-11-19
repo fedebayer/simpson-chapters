@@ -3,7 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
+<<<<<<< Updated upstream
 -- Generation Time: Oct 15, 2021 at 12:44 AM
+=======
+-- Generation Time: Nov 19, 2021 at 12:25 PM
+>>>>>>> Stashed changes
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -52,6 +56,30 @@ INSERT INTO `capitulo` (`id_capitulo`, `nombre`, `temporada`, `estreno`, `gag`, 
 -- --------------------------------------------------------
 
 --
+<<<<<<< Updated upstream
+=======
+-- Table structure for table `comentario`
+--
+
+CREATE TABLE `comentario` (
+  `id_comentario` int(11) NOT NULL,
+  `comentarios` text NOT NULL,
+  `puntuacion` int(11) NOT NULL,
+  `id_capitulo` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `comentario`
+--
+
+INSERT INTO `comentario` (`id_comentario`, `comentarios`, `puntuacion`, `id_capitulo`, `id_usuario`) VALUES
+(2, 'prueba1', 5, 3, 2);
+
+-- --------------------------------------------------------
+
+--
+>>>>>>> Stashed changes
 -- Table structure for table `director`
 --
 
@@ -162,6 +190,17 @@ ALTER TABLE `capitulo`
   ADD KEY `fk_capitulos_directores` (`id_director`);
 
 --
+<<<<<<< Updated upstream
+=======
+-- Indexes for table `comentario`
+--
+ALTER TABLE `comentario`
+  ADD PRIMARY KEY (`id_comentario`),
+  ADD KEY `fk_comentario_usuario` (`id_usuario`),
+  ADD KEY `fk_comentario_capitulo` (`id_capitulo`);
+
+--
+>>>>>>> Stashed changes
 -- Indexes for table `director`
 --
 ALTER TABLE `director`
@@ -196,6 +235,15 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `capitulo`
   MODIFY `id_capitulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+<<<<<<< Updated upstream
+=======
+
+--
+-- AUTO_INCREMENT for table `comentario`
+--
+ALTER TABLE `comentario`
+  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+>>>>>>> Stashed changes
 
 --
 -- AUTO_INCREMENT for table `director`
@@ -230,6 +278,13 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `capitulo`
   ADD CONSTRAINT `fk_capitulos_directores` FOREIGN KEY (`id_director`) REFERENCES `director` (`id_director`);
+
+--
+-- Constraints for table `comentario`
+--
+ALTER TABLE `comentario`
+  ADD CONSTRAINT `fk_comentario_capitulo` FOREIGN KEY (`id_capitulo`) REFERENCES `capitulo` (`id_capitulo`),
+  ADD CONSTRAINT `fk_comentario_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`);
 
 --
 -- Constraints for table `guionista_de_x_capitulo`

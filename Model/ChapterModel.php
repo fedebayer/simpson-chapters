@@ -6,9 +6,18 @@ class ChapterModel
     {
         $this->db = new PDO('mysql:host=localhost;' . 'dbname=simsonmania;charset=utf8', 'root', '');
     }
-    function getChapters()
+    function getChapters($beggining, $size)
     {
-        $query = $this->db->prepare('SELECT c.*, GROUP_CONCAT(g.nombre) AS guionistas, GROUP_CONCAT(g.id_guionista) AS id_guionistas, d.nombre_director AS director FROM ( ( guionista_de_x_capitulo AS r RIGHT JOIN capitulo AS c ON c.id_capitulo = r.id_capitulo ), director d) RIGHT JOIN guionista AS g ON g.id_guionista = r.id_guionista AND d.id_director = c.id_director GROUP BY c.id_capitulo');
+        $queryString = "SELECT c.*, GROUP_CONCAT(g.nombre) AS guionistas, GROUP_CONCAT(g.id_guionista) AS id_guionistas, d.nombre_director AS director FROM ( ( guionista_de_x_capitulo AS r RIGHT JOIN capitulo AS c ON c.id_capitulo = r.id_capitulo ), director d) RIGHT JOIN guionista AS g ON g.id_guionista = r.id_guionista AND d.id_director = c.id_director GROUP BY c.id_capitulo LIMIT $beggining,$size";
+        $query = $this->db->prepare($queryString);
+        $query->execute();
+        $chapters = $query->fetchAll(PDO::FETCH_OBJ);
+        return $chapters;
+    }
+    function getAllChapters()
+    {
+        $queryString = "SELECT c.*, GROUP_CONCAT(g.nombre) AS guionistas, GROUP_CONCAT(g.id_guionista) AS id_guionistas, d.nombre_director AS director FROM ( ( guionista_de_x_capitulo AS r RIGHT JOIN capitulo AS c ON c.id_capitulo = r.id_capitulo ), director d) RIGHT JOIN guionista AS g ON g.id_guionista = r.id_guionista AND d.id_director = c.id_director GROUP BY c.id_capitulo";
+        $query = $this->db->prepare($queryString);
         $query->execute();
         $chapters = $query->fetchAll(PDO::FETCH_OBJ);
         return $chapters;

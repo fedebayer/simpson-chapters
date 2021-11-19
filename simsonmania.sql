@@ -3,11 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
-<<<<<<< Updated upstream
--- Generation Time: Oct 15, 2021 at 12:44 AM
-=======
 -- Generation Time: Nov 19, 2021 at 12:25 PM
->>>>>>> Stashed changes
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -56,8 +52,6 @@ INSERT INTO `capitulo` (`id_capitulo`, `nombre`, `temporada`, `estreno`, `gag`, 
 -- --------------------------------------------------------
 
 --
-<<<<<<< Updated upstream
-=======
 -- Table structure for table `comentario`
 --
 
@@ -79,7 +73,6 @@ INSERT INTO `comentario` (`id_comentario`, `comentarios`, `puntuacion`, `id_capi
 -- --------------------------------------------------------
 
 --
->>>>>>> Stashed changes
 -- Table structure for table `director`
 --
 
@@ -168,7 +161,7 @@ CREATE TABLE `usuario` (
   `id_usuario` int(11) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `rol` varchar(100) NOT NULL
+  `rol` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -176,7 +169,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id_usuario`, `email`, `password`, `rol`) VALUES
-(2, 'prueba1@gmail.com', '$2y$10$c8IfwjqJZbajZlyN2HavYu3su8WqG/r56cWy5EKCU3R9966vSM7RG', '');
+(2, 'prueba1@gmail.com', '$2y$10$c8IfwjqJZbajZlyN2HavYu3su8WqG/r56cWy5EKCU3R9966vSM7RG', 1);
 
 --
 -- Indexes for dumped tables
@@ -190,8 +183,6 @@ ALTER TABLE `capitulo`
   ADD KEY `fk_capitulos_directores` (`id_director`);
 
 --
-<<<<<<< Updated upstream
-=======
 -- Indexes for table `comentario`
 --
 ALTER TABLE `comentario`
@@ -200,7 +191,6 @@ ALTER TABLE `comentario`
   ADD KEY `fk_comentario_capitulo` (`id_capitulo`);
 
 --
->>>>>>> Stashed changes
 -- Indexes for table `director`
 --
 ALTER TABLE `director`
@@ -235,15 +225,12 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `capitulo`
   MODIFY `id_capitulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
-<<<<<<< Updated upstream
-=======
 
 --
 -- AUTO_INCREMENT for table `comentario`
 --
 ALTER TABLE `comentario`
   MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
->>>>>>> Stashed changes
 
 --
 -- AUTO_INCREMENT for table `director`

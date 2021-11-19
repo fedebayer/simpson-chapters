@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", charge);
 function charge() {
   let selector = document.getElementById("screenwriters");
   selector.addEventListener("change", function (e) {
-    chargeTable(selector[event.target.selectedIndex].dataset.entry);
+    chargeTable(selector.options[selector.options.selectedIndex].dataset.entry);
   });
 }
 async function chargeTable(id) {
@@ -21,6 +21,7 @@ async function chargeTable(id) {
                       </thead>`;
   let data = await fetch(`${baseurl2}/getChaptersOfScreenwritter/${id}`);
   let chapters = await data.json();
+  table.innerHTML += chapters;
   for (const chapter of chapters) {
     table.innerHTML += `<tr>
             <td>${chapter.capitulo}</td>

@@ -21,7 +21,7 @@
                 {if $screenwriter->id_guionista === $idToChange}
                     <tr>
                         <form action="{BASE_URL}editScreenwritter/{$idToChange}" method="post">
-                        <td><input type="text" name="nombre" id="nombre" value = "{$screenwriter->nombre}"></td>
+                        <td><input type="text" name="nameScreenwriter" id="nameScreenwriter" value = "{$screenwriter->nombre}"></td>
                         <td><div><button type="submit" class="btn btn-outline-primary">Confirmar</button></div></td>
                         </form>
                     </tr>

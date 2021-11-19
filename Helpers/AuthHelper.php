@@ -24,4 +24,13 @@ class AuthHelper
             return false;
         }
     }
+
+    function getUser(){
+        if($this->isLogged()){
+            return $_SESSION["email"];
+        }
+        else{
+            return false;
+        }
+    }
 }

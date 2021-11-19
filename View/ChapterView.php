@@ -7,13 +7,16 @@ class ChapterView
     {
         $this->smarty = new Smarty();
     }
-    function renderChapters($chapters, $directors, $screenwriters, $logged = null, $idToChange = null)
+    function renderChapters($chapters, $directors, $screenwriters, $rol, $pages, $currentPage, $logged = null, $idToChange = null)
     {
         $this->smarty->assign('chapters', $chapters);
         $this->smarty->assign('screenwriters', $screenwriters);
         $this->smarty->assign('directors', $directors);
         $this->smarty->assign('logged', $logged);
+        $this->smarty->assign('rol', $rol);
         $this->smarty->assign('idToChange', $idToChange);
+        $this->smarty->assign('pages', $pages);
+        $this->smarty->assign('page', $currentPage);
         $this->smarty->display('templates/chapterList.tpl');
     }
     function renderError($error)

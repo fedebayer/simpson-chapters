@@ -3,6 +3,7 @@ require_once "./Model/ChapterModel.php";
 require_once "./View/ChapterView.php";
 require_once "./Controller/screenwritersController.php";
 require_once "./Controller/DirectorController.php";
+require_once "./Controller/LoginController.php";
 require_once "./Helpers/AuthHelper.php";
 
 class ChapterController
@@ -13,6 +14,8 @@ class ChapterController
     private $directorsController;
     private $authHelper;
     private $logged;
+    private $loginController;
+    private $rol;
 
     public function __construct()
     {
@@ -22,33 +25,21 @@ class ChapterController
         $this->directorsController = new DirectorController();
         $this->authHelper = new AuthHelper();
         $this->logged = false;
-<<<<<<< Updated upstream
-=======
         $this->loginController = new LoginController();
         $this->rol = $this->loginController->getRol()->rol;
->>>>>>> Stashed changes
     }
-    public function showHome()
+    public function showHome($currentPage)
     {
         $this->logged = $this->authHelper->isLogged();
-        $chapters = $this->model->getChapters();
-        $screenwriters = $this->sliceScreenwriters($chapters);
+        $screenwriters = $this->screenwritersController->getScreenwriters();
         $directors = $this->directorsController->getDirectors();
-        $this->view->renderChapters($chapters, $directors, $screenwriters, $this->logged);
+        $this->renderChapters($currentPage, $directors, $screenwriters, $this->rol, $this->logged, null);
     }
     function createChapter()
     {
-        $nombre = $_POST['nombre'];
-        $temporada = $_POST['temporada'];
-        $estreno = $_POST['estreno'];
-        $gag = $_POST['gag'];
-        $id_director = $_POST['id_director'];
-        $screenwriters = $_POST['screenwriters'];
-        if (!isset($nombre) || empty($nombre) || !isset($temporada) || empty($temporada) || !isset($estreno) || empty($estreno) || !isset($gag) || empty($gag) || !isset($id_director) || empty($id_director) || !isset($screenwriters) || empty($screenwriters)) {
+        if (!isset($_POST['nombre']) || empty($_POST['nombre']) || !isset($_POST['temporada']) || empty($_POST['temporada']) || !isset($_POST['estreno']) || empty($_POST['estreno']) || !isset($_POST['gag']) || empty($_POST['gag']) || !isset($_POST['id_director']) || empty($_POST['id_director']) || !isset($_POST['screenwriters']) || empty($_POST['screenwriters'])) {
             $this->view->renderError("Error! contenido de celdas no especificado");
             return;
-<<<<<<< Updated upstream
-=======
         } else {
             $nombre = $_POST['nombre'];
             $temporada = $_POST['temporada'];
@@ -56,7 +47,6 @@ class ChapterController
             $gag = $_POST['gag'];
             $id_director = $_POST['id_director'];
             $screenwriters = $_POST['screenwriters'];
->>>>>>> Stashed changes
         }
         $id = $this->model->addChapter($nombre, $temporada, $estreno, $gag, $id_director);
         $this->view->renderHomeLocation();
@@ -73,32 +63,15 @@ class ChapterController
         $this->model->deleteChapterFromDB($id);
         $this->view->renderHomeLocation();
     }
-    function editChapter($id)
+    function editChapter($id, $currentPage)
     {
         $this->authHelper->checkLoggedIn();
         if (!isset($id) || empty($id)) {
             $this->view->renderError("Error! contenido a editar no especificado");
             return;
         }
-        $chapters = $this->model->getChapters();
         $directors = $this->directorsController->getDirectors();
         $screenwriters = $this->screenwritersController->getScreenwriters();
-<<<<<<< Updated upstream
-        $this->view->renderChapters($chapters, $directors, $screenwriters, null, $id);
-    }
-    function updateChapter($id)
-    {
-        $nombre = $_POST['nombre'];
-        $temporada = $_POST['temporada'];
-        $estreno = $_POST['estreno'];
-        $gag = $_POST['gag'];
-        $id_director = $_POST['id_director'];
-        $screenwriters = $_POST['screenwriters'];
-        if (!isset($nombre) || empty($nombre) || !isset($temporada) || empty($temporada) || !isset($estreno) || empty($estreno) || !isset($gag) || empty($gag) || !isset($id_director) || empty($id_director) || !isset($screenwriters) || empty($screenwriters)) {
-            $this->view->renderError("Error! contenido de celdas no especificado");
-            return;
-        }
-=======
         $this->renderChapters($currentPage, $directors, $screenwriters, $this->rol, null, $id);
     }
     function updateChapter($id)
@@ -115,7 +88,6 @@ class ChapterController
             $screenwriters = $_POST['screenwriters'];
         }
 
->>>>>>> Stashed changes
         $this->model->updateChapterFromDB($id, $nombre, $temporada, $estreno, $gag, $id_director);
         $this->screenwritersController->editRelations($id, $screenwriters);
         $this->view->renderHomeLocation();
@@ -140,31 +112,16 @@ class ChapterController
     public function showListByCategory($category)
     {
         $chapters = $this->model->getListByCategory($category);
-        $screenwriters = $this->sliceScreenwriters($chapters);
+        $screenwriters = $this->screenwritersController->getScreenwriters();
         $directors = $this->directorsController->getDirectors();
-        $this->view->renderChapters($chapters, $directors, $screenwriters);
+        //$this->view->renderChapters($chapters, $directors, $screenwriters, $this->rol);
     }
 
-    public function sliceScreenwriters($chapters)
+    function showLoginLocation()
     {
-        $screenwriters = [];
-        $finalNames = [];
-        $finalIds = [];
-        foreach ($chapters as $chapter) {
-            $names = explode(",", $chapter->guionistas);
-            $ids = explode(",", $chapter->id_guionistas);
+        header("Location: " . BASE_URL . "login");
+    }
 
-<<<<<<< Updated upstream
-            for ($i = 0; $i < count($ids); $i++) {
-                if (in_array($ids[$i], $finalNames)) {
-                } else {
-                    array_push($finalNames, $names[$i]);
-                    array_push($finalIds, $ids[$i]);
-                    $newScreenwriter = array('idScreenwriter' => $ids[$i], 'screenwriterName' => $names[$i]);
-                    array_push($screenwriters, $newScreenwriter);
-                }
-            }
-=======
     function renderChapters($currentPage, $directors, $screenwriters, $rol, $logged, $id)
     {
         if ($currentPage == null) {
@@ -174,13 +131,9 @@ class ChapterController
         $pages = ceil((count($this->model->getAllChapters())) / $size);
         if ($currentPage > $pages) {
             header("Location: " . BASE_URL . "home");
->>>>>>> Stashed changes
         }
-
-        return $screenwriters;
-    }
-    function showLoginLocation()
-    {
-        header("Location: " . BASE_URL . "login");
+        $beginning = ($currentPage - 1) * $size;
+        $chapters = $this->model->getChapters($beginning, $size);
+        $this->view->renderChapters($chapters, $directors, $screenwriters, $rol, $pages, $currentPage, $logged, $id);
     }
 }

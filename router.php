@@ -25,11 +25,35 @@ switch ($params[0]) {
     case 'logout':
         $loginController->logout();
         break;
+    case 'signUp':
+        $loginController->signUpLoad();
+        break;
+    case 'signUpAction':
+        $loginController->signUp();
+        break;
+    case 'usuarios':
+        if(isset($params[1])){
+            if($params[1] == 'updateUser'){
+                $loginController->updateUser($params[2]);
+            }
+            if($params[1] == 'deleteUser'){
+                $loginController->deleteUser($params[2]);
+            }
+        }
+        else{
+            $loginController->showUsers();
+        }
+        break;
     case 'verify':
         $loginController->verifyLogin();
         break;
     case 'home':
-        $chapterController->showHome();
+        if(isset($params[1])){
+            $chapterController->showHome($params[1]);
+        }
+        else{
+            $chapterController->showHome(1);
+        }
         break;
     case 'createChapter':
         $chapterController->createChapter();
@@ -38,7 +62,7 @@ switch ($params[0]) {
         $chapterController->deleteChapter($params[1]);
         break;
     case 'goToUpdateChapter':
-        $chapterController->editChapter($params[1]);
+        $chapterController->editChapter($params[2], $params[1]);
         break;
     case 'updateChapter':
         $chapterController->updateChapter($params[1]);

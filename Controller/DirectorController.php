@@ -25,11 +25,13 @@ class DirectorController
     }
     function createDirector()
     {
-        $nombre = $_POST['nombre'];
-        $biografia = $_POST['biografia'];
-        if (!isset($nombre) || empty($nombre) || !isset($biografia) || empty($biografia)) {
+        if (!isset($_POST['nombre']) || empty($_POST['nombre']) || !isset($_POST['biografia']) || empty($_POST['biografia'])) {
             $this->view->renderError("Error! contenido de celdas no especificado");
             return;
+        }
+        else{
+            $nombre = $_POST['nombre'];
+            $biografia = $_POST['biografia'];
         }
         $this->model->addDirector($nombre, ($biografia));
         $this->view->renderHomeLocation();
@@ -61,11 +63,13 @@ class DirectorController
     }
     function updateDirector($id)
     {
-        $nombre = $_POST['nombre'];
-        $biografia = $_POST['biografia'];
-        if (!isset($nombre) || empty($nombre) || !isset($biografia) || empty($biografia)) {
+        if (!isset($_POST['nombre']) || empty($_POST['nombre']) || !isset($_POST['biografia']) || empty($_POST['biografia'])) {
             $this->view->renderError("Error! contenido de celdas no especificado");
             return;
+        }
+        else{
+            $nombre = $_POST['nombre'];
+            $biografia = $_POST['biografia'];
         }
         $this->model->updateDirectorFromDB($id, $nombre, $biografia);
         $this->view->renderHomeLocation();
@@ -77,10 +81,12 @@ class DirectorController
     }
     public function showDirectorChapters()
     {
-        $director = $_POST['directorABuscar'];
-        if (!isset($director) || empty($director)) {
+        if (!isset($_POST['directorABuscar']) || empty($_POST['directorABuscar'])) {
             $this->view->renderError("Error! director no especificado");
             return;
+        }
+        else{
+            $director = $_POST['directorABuscar'];
         }
         $chapters = $this->model->getChaptersByDirector($director);
         $this->view->renderDirectorChapters($director, $chapters);

@@ -168,16 +168,16 @@ class ChapterController
             $currentPage = 1;
         }
         $size = 3;
+        if ($searchedChapters) {
+            $this->view->renderChapters($searchedChapters, $directors, $screenwriters, $rol, 0, $currentPage, $logged, $id);
+            die();
+        }
         $pages = ceil((count($this->model->getAllChapters())) / $size);
         if ($currentPage > $pages) {
             header("Location: " . BASE_URL . "home");
         }
         $beginning = ($currentPage - 1) * $size;
-        if ($searchedChapters) {
-            $chapterPage = $searchedChapters;
-        } else {
-            $chapterPage = $this->model->getChapters($beginning, $size);
-        }
+        $chapterPage = $this->model->getChapters($beginning, $size);
         $this->view->renderChapters($chapterPage, $directors, $screenwriters, $rol, $pages, $currentPage, $logged, $id);
     }
 }

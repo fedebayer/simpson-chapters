@@ -32,15 +32,14 @@ switch ($params[0]) {
         $loginController->signUp();
         break;
     case 'usuarios':
-        if(isset($params[1])){
-            if($params[1] == 'updateUser'){
+        if (isset($params[1])) {
+            if ($params[1] == 'updateUser') {
                 $loginController->updateUser($params[2]);
             }
-            if($params[1] == 'deleteUser'){
+            if ($params[1] == 'deleteUser') {
                 $loginController->deleteUser($params[2]);
             }
-        }
-        else{
+        } else {
             $loginController->showUsers();
         }
         break;
@@ -48,10 +47,9 @@ switch ($params[0]) {
         $loginController->verifyLogin();
         break;
     case 'home':
-        if(isset($params[1])){
+        if (isset($params[1])) {
             $chapterController->showHome($params[1]);
-        }
-        else{
+        } else {
             $chapterController->showHome(1);
         }
         break;
@@ -76,6 +74,8 @@ switch ($params[0]) {
     case 'listByCategory':
         $chapterController->showListByCategory($params[1]);
         break;
+    case 'searchChapters':
+        $chapterController->showListBySearch();
         //Parte de directores
     case 'directores':
         $directorController->showDirectores();

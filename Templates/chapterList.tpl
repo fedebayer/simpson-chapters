@@ -1,21 +1,32 @@
 {include file="templates/header.tpl"}
 <h1>Capitulos de Simsonmania</h1>
+<h3>Buscador</h3>
+<form action="{BASE_URL}searchChapters" method="post">
+    <input type="text" name="nombre" placeholder="nombre">
+    <input type="text" name="temporada" placeholder="temporada">
+    <label for="estreno">Estreno:</label>
+    <input type="date" name="estreno">
+    <input type="text" name="director" placeholder="director">
+    <input type="text" name="guionista" placeholder="guionista">
+    <button type="submit" class="btn btn-outline-primary">Buscar</button>
+</form>
 <table class="table">
     <thead>
         <tr>
-            <th scope="col"><a href="listByCategory/nombre">Nombre</a></th>
-            <th scope="col"><a href="listByCategory/temporada">Temporada</a></th>
-            <th scope="col"><a href="listByCategory/estreno">Estreno</a></th>
-            {if $idToChange != 0}<th><a href="listByCategory/gag">Gag<a/></th>{/if}
-            <th><a href="listByCategory/nombre_director">Director</a></th>
-            <th><a href="listByCategory/guionistas">Guionista(s)</a></th>
+            <th scope="col"><a href="{BASE_URL}listByCategory/nombre">Nombre</a></th>
+            <th scope="col"><a href="{BASE_URL}listByCategory/temporada">Temporada</a></th>
+            <th scope="col"><a href="{BASE_URL}listByCategory/estreno">Estreno</a></th>
+            {if $idToChange != 0}<th><a href="{BASE_URL}listByCategory/gag">Gag<a/></th>{/if}
+            <th><a href="{BASE_URL}listByCategory/nombre_director">Director</a></th>
+            {if $idToChange != 0}<th><a href="listByCategory/imagen">Imagen<a/></th>{/if}
+            <th><a href="{BASE_URL}listByCategory/guionistas">Guionista(s)</a></th>
         </tr>
     </thead>
     {foreach from=$chapters item=$chapter}
             {if $idToChange != null}
                 {if $chapter->id_capitulo === $idToChange}
                     <tr>
-                        <form action="{BASE_URL}updateChapter/{$idToChange} "method="post">
+                        <form action="{BASE_URL}updateChapter/{$idToChange} "method="post" enctype ="multipart/form-data">
                             <td><input type="text" name="nombre" id="nombre" value = "{$chapter->nombre}"></td>
                             <td><input type="text" name="temporada" id="temporada" value = "{$chapter->temporada}"></td>
                             <td><input type="text" name="estreno" id="estreno" value = "{$chapter->estreno}"></td>
@@ -26,6 +37,7 @@
                             <option value="{$director->id_director}">{$director->nombre_director}</option>
                             {/foreach}
                             </select></td>
+                            <td><input type="file" name="input_name" id="imageToUpload"></td>
                             <td>
                             {foreach from=$screenwriters item=$screenwriter}
                                 <input type="checkbox" name = "screenwriters[]" value="{$screenwriter->id_guionista}">{$screenwriter->nombre}
@@ -78,7 +90,7 @@
         {if $logged}
             <br><br>
             <h1>Ingrese Capitulo</h1>
-            <form action="createChapter" method="post">
+            <form action="createChapter" method="post" enctype ="multipart/form-data">
                 <input type="text" name="nombre" id="nombre" placeholder="nombre">
                 <input type="text" name="temporada" id="temporada" placeholder="temporada">
                 <label for="estreno">Fecha de estreno:</label>
@@ -90,7 +102,10 @@
                     <option value="{$director->id_director}">{$director->nombre_director}</option>
                 {/foreach}
                 </select>
-                
+                <label for="imageToUpload">Imagen:</label>
+                <input type="file" name="input_name" id="imageToUpload">
+                <br>
+                <label>Guionista/s:</label>
                 {foreach from=$screenwriters item=$screenwriter}
                     {if $screenwriter->id_guionista != ''}
                         <input type="checkbox" name = "screenwriters[]" value="{$screenwriter->id_guionista}">{$screenwriter->nombre}

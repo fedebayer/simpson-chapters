@@ -22,6 +22,9 @@
             <td>{$chapter->guionistas}</td>
             <td>{$director}</td>
             </tr>
+            {if isset($chapter->imagen)}
+                <td><img src="{$chapter->imagen}" width="300" height="300"/></td>
+            {/if}
         {/foreach}
         </tbody>
         </table>

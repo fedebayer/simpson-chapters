@@ -13,9 +13,26 @@ if (form) {
   form.addEventListener("submit", addComment);
 }
 
+let formPuntaje = document.querySelector("#form-puntaje");
+formPuntaje.addEventListener("submit", getCommentsByPuntaje);
+
 async function getComments() {
   let id = document.querySelector("#id_capitulo").value;
   let API = `api/capitulos/${id}/comentarios`;
+  try {
+    let response = await fetch(API);
+    let comentarios = await response.json();
+    commentVue.comentarios = comentarios;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+async function getCommentsByPuntaje(e) {
+  e.preventDefault();
+  let id = document.querySelector("#id_capitulo").value;
+  let valor = document.querySelector("#valorPuntaje").value;
+  let API = `api/capitulos/${id}/comentarios/puntuacion/${valor}`;
   try {
     let response = await fetch(API);
     let comentarios = await response.json();

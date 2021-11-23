@@ -1,6 +1,6 @@
 <div id="commentsList" class = "container">
     {if $rol!=0}
-        <input type="hidden" data-rol="$user->rol" id ="getRol">
+        <input type="hidden" id ="getRol">
     {/if}
     <h1>Comentarios de Capitulo</h1>
     <form id="form-puntaje" data-filtro="puntaje">

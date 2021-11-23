@@ -77,14 +77,30 @@ class ChapterModel
         $sql = "SELECT c.*, GROUP_CONCAT(g.nombre) AS guionistas, GROUP_CONCAT(g.id_guionista) AS id_guionistas, d.nombre_director AS director FROM ( ( guionista_de_x_capitulo AS r RIGHT JOIN capitulo AS c ON c.id_capitulo = r.id_capitulo ), director d) LEFT JOIN guionista AS g ON g.id_guionista = r.id_guionista AND d.id_director = c.id_director";
         if ($nombre != null)
             $sql .= " WHERE LOWER(c.nombre) LIKE LOWER ('%$nombre%')";
-        if ($temporada != null)
-            $sql .= " AND LOWER(c.temporada) LIKE LOWER('%$temporada%')";
-        if ($estreno != null)
-            $sql .= " AND LOWER(c.estreno) LIKE LOWER('%$estreno%')";
-        if ($director != null)
-            $sql .= " AND LOWER(d.nombre_director) LIKE LOWER('%$director%')";
-        if ($guionista != null)
-            $sql .= " AND LOWER(g.nombre) LIKE LOWER('%$guionista%')";
+        if ($temporada != null) {
+            if ($nombre == null)
+                $sql .= " WHERE LOWER(c.temporada) LIKE LOWER('%$temporada%')";
+            else
+                $sql .= " AND LOWER(c.temporada) LIKE LOWER('%$temporada%')";
+        }
+        if ($estreno != null) {
+            if ($nombre == null && $temporada == null)
+                $sql .= " WHERE LOWER(c.estreno) LIKE LOWER('%$estreno%')";
+            else
+                $sql .= " AND LOWER(c.estreno) LIKE LOWER('%$estreno%')";
+        }
+        if ($director != null) {
+            if ($nombre == null && $temporada == null && $estreno == null)
+                $sql .= " WHERE LOWER(d.nombre_director) LIKE LOWER('%$director%')";
+            else
+                $sql .= " AND LOWER(d.nombre_director) LIKE LOWER('%$director%')";
+        }
+        if ($guionista != null) {
+            if ($nombre == null && $temporada == null && $estreno == null && $director == null)
+                $sql .= " WHERE LOWER(g.nombre) LIKE LOWER('%$guionista%')";
+            else
+                $sql .= " AND LOWER(g.nombre) LIKE LOWER('%$guionista%')";
+        }
         $sql .= " GROUP BY c.id_capitulo";
         $query = $this->db->prepare($sql);
         $query->execute();

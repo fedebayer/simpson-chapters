@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 19, 2021 at 12:25 PM
+-- Generation Time: Nov 19, 2021 at 11:05 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -33,21 +33,22 @@ CREATE TABLE `capitulo` (
   `temporada` varchar(100) NOT NULL,
   `estreno` date NOT NULL,
   `gag` text NOT NULL,
-  `id_director` int(11) NOT NULL
+  `id_director` int(11) NOT NULL,
+  `imagen` varchar(70) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `capitulo`
 --
 
-INSERT INTO `capitulo` (`id_capitulo`, `nombre`, `temporada`, `estreno`, `gag`, `id_director`) VALUES
-(2, 'La casita del horror VII', 'Temporada 8', '1996-10-27', 'La muerte está sentada en el sofá, y mata a la familia a medida que llegan.', 1),
-(3, 'El cuarteto de Homero', 'Temporada 5', '1993-09-30', 'Salen tres tomas de diferentes gags, de los cuales todos acaban mal: Primero: Todos cuando se chocan se rompen, Segundo: Todo ropa y cuerpo cambia de lugar y está enredado y Tercero: Todos cuando chocan explotan.', 1),
-(94, 'El patriotismo de Lisa', 'Temporada 3', '1991-09-26', 'La familia se sienta, y después Homer saca a Ayudante de Santa de debajo suyo.', 17),
-(95, 'Tres sueños frustrados', 'Temporada 32', '2020-11-22', 'La familia se apresura a ir a casa a su sofá y este les dice rápidamente que \"vayan a dormir a la cama\" \r\ny se marchan con tristeza.', 18),
-(96, 'Un momento de decisión', 'Temporada 1', '1990-03-18', 'Una escena conmovedora, en la que vemos a Homero y Marge reconciliándose, \r\ny además de la clara parodia a \"Un reto al destino.', 19),
-(97, 'Tardes de Trueno', 'Temporada 3', '1991-11-14', 'Los almohadones no están, así que la familia cae dentro del mismo.', 20),
-(98, 'Nuestros años felices', 'Temporada 2', '1991-03-28', 'La familia se encuentra al Abuelo dormido en el sillón.', 19);
+INSERT INTO `capitulo` (`id_capitulo`, `nombre`, `temporada`, `estreno`, `gag`, `id_director`, `imagen`) VALUES
+(2, 'La casita del horror VII', 'Temporada 8', '1996-10-27', 'La muerte está sentada en el sofá, y mata a la familia a medida que llegan.', 1, NULL),
+(3, 'El cuarteto de Homero', 'Temporada 5', '1993-09-30', 'Salen tres tomas de diferentes gags, de los cuales todos acaban mal: Primero: Todos cuando se chocan se rompen, Segundo: Todo ropa y cuerpo cambia de lugar y está enredado y Tercero: Todos cuando chocan explotan.', 1, NULL),
+(94, 'El patriotismo de Lisa', 'Temporada 3', '1991-09-26', 'La familia se sienta, y después Homer saca a Ayudante de Santa de debajo suyo.', 17, NULL),
+(95, 'Tres sueños frustrados', 'Temporada 32', '2020-11-22', 'La familia se apresura a ir a casa a su sofá y este les dice rápidamente que \"vayan a dormir a la cama\" \r\ny se marchan con tristeza.', 18, NULL),
+(96, 'Un momento de decisión', 'Temporada 1', '1990-03-18', 'Una escena conmovedora, en la que vemos a Homero y Marge reconciliándose, \r\ny además de la clara parodia a \"Un reto al destino.', 19, NULL),
+(97, 'Tardes de Trueno', 'Temporada 3', '1991-11-14', 'Los almohadones no están, así que la familia cae dentro del mismo.', 20, NULL),
+(98, 'Nuestros años felices', 'Temporada 2', '1991-03-28', 'La familia se encuentra al Abuelo dormido en el sillón.', 19, NULL);
 
 -- --------------------------------------------------------
 

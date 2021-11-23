@@ -48,7 +48,13 @@ class ChapterController
             $id_director = $_POST['id_director'];
             $screenwriters = $_POST['screenwriters'];
         }
-        $id = $this->model->addChapter($nombre, $temporada, $estreno, $gag, $id_director);
+        if (
+            $_FILES['input_name']['type'] == "image/jpg" || $_FILES['input_name']['type'] == "image/jpeg" || $_FILES['input_name']['type'] == "image/png"
+        ) {
+            $id = $this->model->addChapter($nombre, $temporada, $estreno, $gag, $id_director, $_FILES['input_name']);
+        } else {
+            $id = $this->model->addChapter($nombre, $temporada, $estreno, $gag, $id_director);
+        }
         $this->view->renderHomeLocation();
         $this->screenwritersController->addRelation($screenwriters, $id);
     }
@@ -87,8 +93,13 @@ class ChapterController
             $id_director = $_POST['id_director'];
             $screenwriters = $_POST['screenwriters'];
         }
-
-        $this->model->updateChapterFromDB($id, $nombre, $temporada, $estreno, $gag, $id_director);
+        if (
+            $_FILES['input_name']['type'] == "image/jpg" || $_FILES['input_name']['type'] == "image/jpeg" || $_FILES['input_name']['type'] == "image/png"
+        ) {
+            $this->model->updateChapterFromDB($id, $nombre, $temporada, $estreno, $gag, $id_director, $_FILES['input_name']);
+        } else {
+            $this->model->updateChapterFromDB($id, $nombre, $temporada, $estreno, $gag, $id_director);
+        }
         $this->screenwritersController->editRelations($id, $screenwriters);
         $this->view->renderHomeLocation();
     }
@@ -117,23 +128,56 @@ class ChapterController
         //$this->view->renderChapters($chapters, $directors, $screenwriters, $this->rol);
     }
 
+    function showListBySearch()
+    {
+        $nombre = null;
+        $temporada = null;
+        $estreno = null;
+        $director = null;
+        $guionista = null;
+        if (isset($_POST['nombre']) || empty($_POST['nombre']))
+            $nombre = $_POST['nombre'];
+        if (isset($_POST['temporada']) || empty($_POST['temporada']))
+            $temporada = $_POST['temporada'];
+        if (isset($_POST['estreno']) || empty($_POST['estreno']))
+            $estreno = $_POST['estreno'];
+        if (isset($_POST['director']) || empty($_POST['director']))
+            $director = $_POST['director'];
+        if (isset($_POST['guionista']) || empty($_POST['guionista']))
+            $guionista = $_POST['guionista'];
+        $this->logged = $this->authHelper->isLogged();
+        $chapters = $this->model->getListBySearch($nombre, $temporada, $estreno, $director, $guionista);
+        $screenwriters = $this->screenwritersController->getScreenwriters();
+        $directors = $this->directorsController->getDirectors();
+        if ($chapters == null) {
+            $this->view->renderChapters($chapters, $directors, $screenwriters, $this->rol, 0, 1, $this->logged, null);
+            die();
+        } else {
+            $this->renderChapters(1, $directors, $screenwriters, $this->rol, $this->logged, null, $chapters);
+        }
+    }
+
     function showLoginLocation()
     {
         header("Location: " . BASE_URL . "login");
     }
 
-    function renderChapters($currentPage, $directors, $screenwriters, $rol, $logged, $id)
+    function renderChapters($currentPage, $directors, $screenwriters, $rol, $logged, $id, $searchedChapters = null)
     {
         if ($currentPage == null) {
             $currentPage = 1;
         }
         $size = 3;
+        if ($searchedChapters) {
+            $this->view->renderChapters($searchedChapters, $directors, $screenwriters, $rol, 0, $currentPage, $logged, $id);
+            die();
+        }
         $pages = ceil((count($this->model->getAllChapters())) / $size);
         if ($currentPage > $pages) {
             header("Location: " . BASE_URL . "home");
         }
         $beginning = ($currentPage - 1) * $size;
-        $chapters = $this->model->getChapters($beginning, $size);
-        $this->view->renderChapters($chapters, $directors, $screenwriters, $rol, $pages, $currentPage, $logged, $id);
+        $chapterPage = $this->model->getChapters($beginning, $size);
+        $this->view->renderChapters($chapterPage, $directors, $screenwriters, $rol, $pages, $currentPage, $logged, $id);
     }
 }

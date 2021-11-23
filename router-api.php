@@ -15,6 +15,12 @@ $router->addRoute('capitulos/comentarios/:ID', 'GET', 'ApiCommentController', 'g
 $router->addRoute('capitulos/comentarios/:ID', 'DELETE', 'ApiCommentController', 'remove');
 $router->addRoute('capitulos/comentarios', "POST", 'ApiCommentController', 'addComment');
 $router->addRoute('capitulos/comentarios/:ID', "PUT", 'ApiCommentController', 'updateComment');
+$router->addRoute(
+    'capitulos/:ID_CAPITULO/comentarios/puntuacion/:VALOR',
+    'GET',
+    'ApiCommentController',
+    'getCommentsByChapterIdAndPuntuacion'
+);
 
 
 // rutea

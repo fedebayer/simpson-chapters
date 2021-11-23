@@ -25,10 +25,15 @@ class ApiCommentController
     {
         $capituloId = $params[':ID_CAPITULO'];
         $comentarios = $this->model->getCommentsByChapterId($capituloId);
-        if ($comentarios)
-            $this->view->response($comentarios, 200);
-        else
-            $this->view->response("No existen comentarios para capitulo", 404);
+        $this->view->response($comentarios, 200);
+    }
+
+    public function  getCommentsByChapterIdAndPuntuacion($params = null)
+    {
+        $capituloId = $params[':ID_CAPITULO'];
+        $valor = $params[':VALOR'];
+        $comentarios = $this->model->getCommentsByChapterIdAndPuntuacion($capituloId, $valor);
+        $this->view->response($comentarios, 200);
     }
 
     public function  getAll($params = null)

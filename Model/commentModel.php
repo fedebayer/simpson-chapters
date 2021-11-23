@@ -9,7 +9,7 @@ class CommentModel
 
     function getAll()
     {
-        $query = $this->db->prepare('SELECT a.*,b.email FROM comentario a LEFT JOIN usuario b ON a.id_usuario = b.id_usuario');
+        $query = $this->db->prepare('SELECT a.*,b.*, c.email FROM comentario a LEFT JOIN capitulo b ON a.id_capitulo = b.id_capitulo LEFT JOIN usuario c ON a.id_usuario = c.id_usuario');
         $query->execute();
         $comentarios = $query->fetchAll(PDO::FETCH_OBJ);
         return $comentarios;
@@ -39,8 +39,16 @@ class CommentModel
     }
     function getCommentsByChapterId($id_capitulo)
     {
-        $query = $this->db->prepare('SELECT a.*, b.email, b.rol FROM comentario a LEFT JOIN usuario b ON a.id_usuario = b.id_usuario WHERE id_capitulo = ?');
+        $query = $this->db->prepare('SELECT a.*,b.*, c.email FROM comentario a LEFT JOIN capitulo b ON a.id_capitulo = b.id_capitulo LEFT JOIN usuario c ON a.id_usuario = c.id_usuario WHERE a.id_capitulo = ?');
         $query->execute(array($id_capitulo));
+        $comentarios = $query->fetchAll(PDO::FETCH_OBJ);
+        return $comentarios;
+    }
+
+    function getCommentsByChapterIdAndPuntuacion($id_capitulo, $puntuacion)
+    {
+        $query = $this->db->prepare('SELECT a.*,b.*, c.email FROM comentario a LEFT JOIN capitulo b ON a.id_capitulo = b.id_capitulo LEFT JOIN usuario c ON a.id_usuario = c.id_usuario WHERE a.id_capitulo = ? AND a.puntuacion = ?');
+        $query->execute(array($id_capitulo, $puntuacion));
         $comentarios = $query->fetchAll(PDO::FETCH_OBJ);
         return $comentarios;
     }

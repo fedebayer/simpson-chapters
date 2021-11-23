@@ -13,13 +13,13 @@
 <table class="table">
     <thead>
         <tr>
-            <th scope="col"><a href="{BASE_URL}listByCategory/nombre">Nombre</a></th>
-            <th scope="col"><a href="{BASE_URL}listByCategory/temporada">Temporada</a></th>
-            <th scope="col"><a href="{BASE_URL}listByCategory/estreno">Estreno</a></th>
-            {if $idToChange != 0}<th><a href="{BASE_URL}listByCategory/gag">Gag<a/></th>{/if}
-            <th><a href="{BASE_URL}listByCategory/nombre_director">Director</a></th>
-            {if $idToChange != 0}<th><a href="listByCategory/imagen">Imagen<a/></th>{/if}
-            <th><a href="{BASE_URL}listByCategory/guionistas">Guionista(s)</a></th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Temporada</th>
+            <th scope="col">Estreno</th>
+            {if $idToChange != 0}<th>Gag</th>{/if}
+            <th>Director</th>
+            {if $idToChange != 0}<th>Imagen</th>{/if}
+            <th>Guionista(s)</th>
         </tr>
     </thead>
     {foreach from=$chapters item=$chapter}

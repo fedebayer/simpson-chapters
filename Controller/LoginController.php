@@ -46,8 +46,6 @@ class LoginController
             } else {
                 $this->view->showLogin("Acceso denegado");
             }
-        } else {
-            $this->view->showLogin("Debe ingresar email y contraseña");
         }
     }
 
@@ -77,6 +75,7 @@ class LoginController
                     if ($password != $passwordConfirm) {
                         $this->view->showSignUp("Las contraseñas deben ser iguales");
                     } else {
+                        $password = password_hash($password, PASSWORD_DEFAULT);
                         $this->model->addUser($email, $password);
                         session_start();
                         $_SESSION["email"] = $email;

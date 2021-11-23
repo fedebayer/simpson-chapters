@@ -34,6 +34,7 @@ class ChapterView
         $this->smarty->assign('director', $director);
         $this->smarty->assign('logged', $logged);
         $this->smarty->assign('idUser', $idUser);
+        $this->smarty->assign('rol', $rol);
         $this->smarty->display('templates/chapterInfo.tpl');
     }
     function renderChaptersByDirector($director, $chapters)

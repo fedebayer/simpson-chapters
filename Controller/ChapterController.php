@@ -26,14 +26,19 @@ class ChapterController
         $this->authHelper = new AuthHelper();
         $this->logged = false;
         $this->loginController = new LoginController();
-        $this->rol = $this->loginController->getRol()->rol;
+        $this->rol = $this->loginController->getRol();
     }
     public function showHome($currentPage)
     {
         $this->logged = $this->authHelper->isLogged();
+        if (!$this->logged) {
+            $rol = null;
+        } else {
+            $rol = $this->rol->rol;
+        }
         $screenwriters = $this->screenwritersController->getScreenwriters();
         $directors = $this->directorsController->getDirectors();
-        $this->renderChapters($currentPage, $directors, $screenwriters, $this->rol, $this->logged, null);
+        $this->renderChapters($currentPage, $directors, $screenwriters, $rol, $this->logged, null);
     }
     function createChapter()
     {
@@ -78,7 +83,7 @@ class ChapterController
         }
         $directors = $this->directorsController->getDirectors();
         $screenwriters = $this->screenwritersController->getScreenwriters();
-        $this->renderChapters($currentPage, $directors, $screenwriters, $this->rol, null, $id);
+        $this->renderChapters($currentPage, $directors, $screenwriters, $this->rol->rol, null, $id);
     }
     function updateChapter($id)
     {
@@ -108,7 +113,12 @@ class ChapterController
         $this->logged = $this->authHelper->isLogged();
         $userId = $this->loginController->getId();
         $chapter = $this->model->getChapter($id);
-        $this->view->renderChapterInfo($chapter, $director, $this->logged, $userId);
+        if ($this->rol) {
+            $rol = $this->rol->rol;
+        } else {
+            $rol = null;
+        }
+        $this->view->renderChapterInfo($chapter, $director, $this->logged, $userId, $rol);
     }
     public function showChaptersByDirector()
     {
@@ -150,10 +160,10 @@ class ChapterController
         $screenwriters = $this->screenwritersController->getScreenwriters();
         $directors = $this->directorsController->getDirectors();
         if ($chapters == null) {
-            $this->view->renderChapters($chapters, $directors, $screenwriters, $this->rol, 0, 1, $this->logged, null);
+            $this->view->renderChapters($chapters, $directors, $screenwriters, $this->rol->rol, 0, 1, $this->logged, null);
             die();
         } else {
-            $this->renderChapters(1, $directors, $screenwriters, $this->rol, $this->logged, null, $chapters);
+            $this->renderChapters(1, $directors, $screenwriters, $this->rol->rol, $this->logged, null, $chapters);
         }
     }
 
@@ -162,7 +172,7 @@ class ChapterController
         header("Location: " . BASE_URL . "login");
     }
 
-    function renderChapters($currentPage, $directors, $screenwriters, $rol, $logged, $id, $searchedChapters = null)
+    function renderChapters($currentPage, $directors, $screenwriters, $rol = null, $logged, $id, $searchedChapters = null)
     {
         if ($currentPage == null) {
             $currentPage = 1;

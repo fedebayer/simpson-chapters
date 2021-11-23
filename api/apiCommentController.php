@@ -27,7 +27,6 @@ class ApiCommentController
         $comentarios = $this->model->getCommentsByChapterId($capituloId);
         $this->view->response($comentarios, 200);
     }
-
     public function  getCommentsByChapterIdAndPuntuacion($params = null)
     {
         $capituloId = $params[':ID_CAPITULO'];
@@ -39,6 +38,40 @@ class ApiCommentController
     public function  getAll($params = null)
     {
         $comentarios = $this->model->getAll();
+        $this->view->response($comentarios, 200);
+    }
+
+    public function  orderByScore($params = null)
+    {
+        $id = $params[':ID_CAPITULO'];
+        $type = $params[':TYPE'];
+        if ($type == "") {
+            $comentarios = $this->model->getBy($id, "puntuacion", "DESC");
+        }
+        if ($type == "DESC") {
+            $comentarios = $this->model->getBy($id, "puntuacion", "DESC");
+        }
+        if ($type == "ASC") {
+            $comentarios = $this->model->getBy($id, "puntuacion", "ASC");
+        }
+
+        $this->view->response($comentarios, 200);
+    }
+
+    public function  orderByDate($params = null)
+    {
+        $id = $params[':ID_CAPITULO'];
+        $type = $params[':TYPE'];
+        if ($type == "") {
+            $comentarios = $this->model->getBy($id, "fecha", "DESC");
+        }
+        if ($type == "DESC") {
+            $comentarios = $this->model->getBy($id, "fecha", "DESC");
+        }
+        if ($type == "ASC") {
+            $comentarios = $this->model->getBy($id, "fecha", "ASC");
+        }
+
         $this->view->response($comentarios, 200);
     }
 
@@ -65,23 +98,26 @@ class ApiCommentController
 
     public function addComment($params = null)
     {
+        date_default_timezone_set('America/Argentina/Buenos_Aires');
         $data = $this->getData();
         $comentarios = $data->comentarios;
         $puntuacion = $data->puntuacion;
         $id_capitulo = $data->id_capitulo;
         $id_usuario = $data->id_usuario;
+        $mydate = getdate(date("U"));
+        $fecha = "$mydate[year]-$mydate[mon]-$mydate[mday]";
         if (!isset($comentarios) || empty($comentarios) || !isset($puntuacion) || empty($puntuacion) || !isset($id_capitulo) || empty($id_capitulo) || !isset($id_usuario) || empty($id_usuario)) {
             $this->view->response("Error! contenido de celdas no especificado", 400);
             return;
         }
-        $id = $this->model->save($comentarios, $puntuacion, $id_capitulo, $id_usuario);
+        $id = $this->model->save($comentarios, $puntuacion, $id_capitulo, $id_usuario, $fecha);
         $comentario = $this->model->get($id);
         if ($comentario)
             $this->view->response($comentario, 200);
         else
             $this->view->response("El comentario no fue creado", 500);
     }
-
+    /*
     public function updateComment($params = null)
     {
         $id = $params[':ID'];
@@ -100,5 +136,5 @@ class ApiCommentController
             $this->view->response("El comentario fue modificado con exito.", 200);
         } else
             $this->view->response("El comentario con el id={$id} no existe", 404);
-    }
+    }*/
 }

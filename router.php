@@ -71,9 +71,6 @@ switch ($params[0]) {
     case 'searchChaptersOfDirector':
         $chapterController->showChaptersByDirector();
         break;
-    case 'listByCategory':
-        $chapterController->showListByCategory($params[1]);
-        break;
     case 'searchChapters':
         $chapterController->showListBySearch();
         //Parte de directores
@@ -97,9 +94,6 @@ switch ($params[0]) {
         break;
     case 'searchDirectorChapters':
         $directorController->showDirectorChapters();
-        break;
-    case 'listDirectorsByCategory':
-        $directorController->showListDirectorsByCategory($params[1]);
         break;
         //Parte de guionistas
     case 'guionistas':

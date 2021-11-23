@@ -9,18 +9,21 @@ define("BASE_URL", 'http://' . $_SERVER["SERVER_NAME"] . ':' . $_SERVER["SERVER_
 $router = new Router();
 
 // tabla de ruteo
+$router->addRoute(
+    'capitulos/:ID_CAPITULO/comentarios/puntaje/:VALOR',
+    'GET',
+    'ApiCommentController',
+    'getCommentsByChapterIdAndPuntuacion'
+);
 $router->addRoute('capitulos/comentarios', 'GET', 'ApiCommentController', 'getAll');
+$router->addRoute('capitulos/:ID_CAPITULO/comentarios/puntuacion/:TYPE', 'GET', 'ApiCommentController', 'orderByScore');
+$router->addRoute('capitulos/:ID_CAPITULO/comentarios/fecha/:TYPE', 'GET', 'ApiCommentController', 'orderByDate');
 $router->addRoute('capitulos/:ID_CAPITULO/comentarios', 'GET', 'ApiCommentController', 'getCommentsByChapterId');
 $router->addRoute('capitulos/comentarios/:ID', 'GET', 'ApiCommentController', 'getOne');
 $router->addRoute('capitulos/comentarios/:ID', 'DELETE', 'ApiCommentController', 'remove');
 $router->addRoute('capitulos/comentarios', "POST", 'ApiCommentController', 'addComment');
 $router->addRoute('capitulos/comentarios/:ID', "PUT", 'ApiCommentController', 'updateComment');
-$router->addRoute(
-    'capitulos/:ID_CAPITULO/comentarios/puntuacion/:VALOR',
-    'GET',
-    'ApiCommentController',
-    'getCommentsByChapterIdAndPuntuacion'
-);
+
 
 
 // rutea

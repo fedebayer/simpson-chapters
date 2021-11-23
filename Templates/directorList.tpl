@@ -3,7 +3,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col"><a href="listDirectorsByCategory/nombre_director">Nombre</a></th>
+                <th scope="col">Nombre</th>
                 {if $idToChange != null}
                     <th scope="col">gag</a></th>
                 {/if}

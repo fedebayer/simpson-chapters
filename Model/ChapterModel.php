@@ -64,13 +64,6 @@ class ChapterModel
         $chapters = $query->fetchAll(PDO::FETCH_OBJ);
         return $chapters;
     }
-    function getListByCategory($category)
-    {
-        $query = $this->db->prepare('SELECT c.*, GROUP_CONCAT(g.nombre) AS guionistas, GROUP_CONCAT(g.id_guionista) AS id_guionistas, d.nombre_director AS director FROM ( ( guionista_de_x_capitulo AS r RIGHT JOIN capitulo AS c ON c.id_capitulo = r.id_capitulo ), director d) LEFT JOIN guionista AS g ON g.id_guionista = r.id_guionista AND d.id_director = c.id_director GROUP BY c.id_capitulo ORDER BY ' . $category . '');
-        $query->execute();
-        $chapters = $query->fetchAll(PDO::FETCH_OBJ);
-        return $chapters;
-    }
 
     function getListBySearch($nombre = null, $temporada = null, $estreno = null, $director = null, $guionista = null)
     {

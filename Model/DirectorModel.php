@@ -42,11 +42,4 @@ class DirectorModel
         $chapters = $query->fetchAll(PDO::FETCH_OBJ);
         return $chapters;
     }
-    function getListByCategory($category)
-    {
-        $query = $this->db->prepare('SELECT * FROM director ORDER BY ' . $category . '');
-        $query->execute();
-        $directors = $query->fetchAll(PDO::FETCH_OBJ);
-        return $directors;
-    }
 }

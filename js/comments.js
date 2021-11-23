@@ -77,7 +77,6 @@ let commentVue = new Vue({
     isAdmin() {
       let rol = document.getElementById("getRol");
       if (rol) {
-        let isAdmin = rol.getAttribute("data-rol");
         return "submit";
       }
       return "hidden";

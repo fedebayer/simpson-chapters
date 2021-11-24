@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2021 at 10:37 PM
+-- Generation Time: Nov 24, 2021 at 10:23 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -48,10 +48,7 @@ INSERT INTO `capitulo` (`id_capitulo`, `nombre`, `temporada`, `estreno`, `gag`, 
 (95, 'Tres sueños frustrados', 'Temporada 32', '2020-11-22', 'La familia se apresura a ir a casa a su sofá y este les dice rápidamente que \"vayan a dormir a la cama\" \r\ny se marchan con tristeza.', 18, NULL),
 (96, 'Un momento de decisión', 'Temporada 1', '1990-03-18', 'Una escena conmovedora, en la que vemos a Homero y Marge reconciliándose, \r\ny además de la clara parodia a \"Un reto al destino.', 19, NULL),
 (97, 'Tardes de Trueno', 'Temporada 3', '1991-11-14', 'Los almohadones no están, así que la familia cae dentro del mismo.', 20, NULL),
-(98, 'Nuestros años felices', 'Temporada 2', '1991-03-28', 'La familia se encuentra al Abuelo dormido en el sillón.', 19, NULL),
-(99, 'aa', 'aaaaa', '2021-11-03', 'aaaaa', 18, NULL),
-(100, 'zzzz', 'zzzzz', '2021-11-08', 'zzz', 19, 'img/chapters/6199518371add.png'),
-(101, 'aaaaaa', 'aaaaaaaa', '2021-11-09', 'aaaaaaaaa', 1, NULL);
+(98, 'Nuestros años felices', 'Temporada 2', '1991-03-28', 'La familia se encuentra al Abuelo dormido en el sillón.', 19, NULL);
 
 -- --------------------------------------------------------
 
@@ -67,14 +64,6 @@ CREATE TABLE `comentario` (
   `id_usuario` int(11) NOT NULL,
   `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `comentario`
---
-
-INSERT INTO `comentario` (`id_comentario`, `comentarios`, `puntuacion`, `id_capitulo`, `id_usuario`, `fecha`) VALUES
-(27, 'aaaaaa', 1, 100, 2, '2021-11-23'),
-(28, 'aaaaaa', 4, 100, 2, '2021-11-29');
 
 -- --------------------------------------------------------
 
@@ -153,12 +142,9 @@ INSERT INTO `guionista_de_x_capitulo` (`id_guionista_x_capitulo`, `id_capitulo`,
 (43, 97, 21),
 (44, 98, 22),
 (45, 98, 23),
-(46, 99, 1),
 (47, 2, 1),
 (48, 2, 2),
-(49, 2, 3),
-(50, 100, 18),
-(51, 101, 1);
+(49, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -178,7 +164,8 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id_usuario`, `email`, `password`, `rol`) VALUES
-(2, 'prueba1@gmail.com', '$2y$10$c8IfwjqJZbajZlyN2HavYu3su8WqG/r56cWy5EKCU3R9966vSM7RG', 1);
+(2, 'prueba1@gmail.com', '$2y$10$c8IfwjqJZbajZlyN2HavYu3su8WqG/r56cWy5EKCU3R9966vSM7RG', 1),
+(10, 'prueba2@gmail.com', '$2y$10$0MT2XTUSrUonHrBgo.13Ne7dbIUS40DcjFkDQrDCSF6.P.DhgI8Zy', 2);
 
 --
 -- Indexes for dumped tables
@@ -233,37 +220,37 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT for table `capitulo`
 --
 ALTER TABLE `capitulo`
-  MODIFY `id_capitulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `id_capitulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 
 --
 -- AUTO_INCREMENT for table `comentario`
 --
 ALTER TABLE `comentario`
-  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `director`
 --
 ALTER TABLE `director`
-  MODIFY `id_director` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_director` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `guionista`
 --
 ALTER TABLE `guionista`
-  MODIFY `id_guionista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_guionista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `guionista_de_x_capitulo`
 --
 ALTER TABLE `guionista_de_x_capitulo`
-  MODIFY `id_guionista_x_capitulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id_guionista_x_capitulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables

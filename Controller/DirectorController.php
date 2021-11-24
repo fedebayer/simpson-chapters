@@ -91,11 +91,6 @@ class DirectorController
         $chapters = $this->model->getChaptersByDirector($director);
         $this->view->renderDirectorChapters($director, $chapters);
     }
-    public function showListDirectorsByCategory($category)
-    {
-        $directors = $this->model->getListByCategory($category);
-        $this->view->renderDirectors($directors);
-    }
 
     public function getDirectors()
     {

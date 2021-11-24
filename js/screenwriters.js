@@ -21,7 +21,6 @@ async function chargeTable(id) {
                       </thead>`;
   let data = await fetch(`${baseurl2}/getChaptersOfScreenwritter/${id}`);
   let chapters = await data.json();
-  table.innerHTML += chapters;
   for (const chapter of chapters) {
     table.innerHTML += `<tr>
             <td>${chapter.capitulo}</td>

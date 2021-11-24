@@ -130,13 +130,6 @@ class ChapterController
         $chapters = $this->model->getChaptersByDirector($director);
         $this->view->renderChaptersByDirector($director, $chapters);
     }
-    public function showListByCategory($category)
-    {
-        $chapters = $this->model->getListByCategory($category);
-        $screenwriters = $this->screenwritersController->getScreenwriters();
-        $directors = $this->directorsController->getDirectors();
-        //$this->view->renderChapters($chapters, $directors, $screenwriters, $this->rol);
-    }
 
     function showListBySearch()
     {

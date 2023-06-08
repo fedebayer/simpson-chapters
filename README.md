@@ -1,4 +1,12 @@
-# tpeWeb2
+# Simpson Chapters Backend
+
+![GitHub top language](https://img.shields.io/github/languages/top/FedeBayer/simpsonChaptersBackend?style=for-the-badge)
+![GitHub last commit](https://img.shields.io/github/last-commit/FedeBayer/simpsonChaptersBackend?style=for-the-badge)
+![GitHub issues](https://img.shields.io/github/issues/FedeBayer/simpsonChaptersBackend?style=for-the-badge)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/FedeBayer/simpsonChaptersBackend?style=for-the-badge)
+
+### Description
+
 Este proyecto orientado al back-end, se practica lo siguiente:
 Conceptos tratados: Framework VUE, PHP, Back-end, MVC, Web services(API Rest), Seguridad y encriptacion, Template Engine(Smarty),
 Ruteo, Arquitectura web, Persistencia(BBDD), CRUD(BBDD), SSR vs CSR, File upload(images) to DB, API Authentication.
@@ -11,4 +19,6 @@ se incluyen varios criterios/ordenamientos que se pueden elegir a la hora de tra
 esta base de datos dependen del rol del usuario (no logueado, usuario, administrador).
 
 Se uso la herramienta XAMPP y phpmyadmin.
+
+![db](https://github.com/FedeBayer/simpsonChaptersBackend/assets/89879671/4ed84f60-3450-46b4-ba4d-add107fd5d7d)
 
